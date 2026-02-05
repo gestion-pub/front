@@ -2,10 +2,12 @@ import * as React from 'react';
 import type { Viewport } from 'next';
 
 import '@/styles/global.css';
+import '@/styles/design-tokens.css';
 
-import { UserProvider } from '@/contexts/user-context';
-import { LocalizationProvider } from '@/components/core/localization-provider';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
+
 import { ThemeProvider } from '@/components/core/theme-provider/theme-provider';
+import { UserProvider } from '@/contexts/user-context';
 
 export const viewport = { width: 'device-width', initialScale: 1 } satisfies Viewport;
 
@@ -15,13 +17,14 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps): React.JSX.Element {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <LocalizationProvider>
+        <InitColorSchemeScript attribute="class" />
+        <ThemeProvider>
           <UserProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            {children}
           </UserProvider>
-        </LocalizationProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

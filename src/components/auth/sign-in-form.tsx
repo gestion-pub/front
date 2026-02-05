@@ -4,15 +4,6 @@ import * as React from 'react';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import InputLabel from '@mui/material/InputLabel';
-import Link from '@mui/material/Link';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { EyeIcon } from '@phosphor-icons/react/dist/ssr/Eye';
 import { EyeSlashIcon } from '@phosphor-icons/react/dist/ssr/EyeSlash';
 import { Controller, useForm } from 'react-hook-form';
@@ -21,6 +12,7 @@ import { z as zod } from 'zod';
 import { paths } from '@/paths';
 import { authClient } from '@/lib/auth/client';
 import { useUser } from '@/hooks/use-user';
+import styles from './auth.module.css';
 
 const schema = zod.object({
   email: zod.string().min(1, { message: 'Email is required' }).email(),
@@ -29,7 +21,7 @@ const schema = zod.object({
 
 type Values = zod.infer<typeof schema>;
 
-const defaultValues = { email: 'sofia@devias.io', password: 'Secret1' } satisfies Values;
+const defaultValues = { email: '', password: '' } satisfies Values;
 
 export function SignInForm(): React.JSX.Element {
   const router = useRouter();
@@ -70,84 +62,82 @@ export function SignInForm(): React.JSX.Element {
   );
 
   return (
-    <Stack spacing={4}>
-      <Stack spacing={1}>
-        <Typography variant="h4">Sign in</Typography>
-        <Typography color="text.secondary" variant="body2">
+    <div className={styles.stack}>
+      <div className={styles.header}>
+        <h4 className={styles.title}>Sign in</h4>
+        <p className={styles.subtitle}>
           Don&apos;t have an account?{' '}
-          <Link component={RouterLink} href={paths.auth.signUp} underline="hover" variant="subtitle2">
+          <RouterLink href={paths.auth.signUp} className={styles.link}>
             Sign up
-          </Link>
-        </Typography>
-      </Stack>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          <Controller
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <FormControl error={Boolean(errors.email)}>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput {...field} label="Email address" type="email" />
-                {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
-              </FormControl>
-            )}
-          />
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <FormControl error={Boolean(errors.password)}>
-                <InputLabel>Password</InputLabel>
-                <OutlinedInput
+          </RouterLink>
+        </p>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formStack}>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <label htmlFor="email" className={styles.label}>Email address</label>
+              <input
+                {...field}
+                id="email"
+                type="email"
+                className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+              />
+              {errors.email ? <p className={styles.helperText}>{errors.email.message}</p> : null}
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <label htmlFor="password" className={styles.label}>Password</label>
+              <div className={styles.inputWrapper}>
+                <input
                   {...field}
-                  endAdornment={
-                    showPassword ? (
-                      <EyeIcon
-                        cursor="pointer"
-                        fontSize="var(--icon-fontSize-md)"
-                        onClick={(): void => {
-                          setShowPassword(false);
-                        }}
-                      />
-                    ) : (
-                      <EyeSlashIcon
-                        cursor="pointer"
-                        fontSize="var(--icon-fontSize-md)"
-                        onClick={(): void => {
-                          setShowPassword(true);
-                        }}
-                      />
-                    )
-                  }
-                  label="Password"
+                  id="password"
                   type={showPassword ? 'text' : 'password'}
+                  className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
                 />
-                {errors.password ? <FormHelperText>{errors.password.message}</FormHelperText> : null}
-              </FormControl>
-            )}
-          />
-          <div>
-            <Link component={RouterLink} href={paths.auth.resetPassword} variant="subtitle2">
-              Forgot password?
-            </Link>
+                <div
+                  className={styles.inputIcon}
+                  onClick={() => setShowPassword(!showPassword)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  {showPassword ? (
+                    <EyeIcon fontSize="1.25rem" />
+                  ) : (
+                    <EyeSlashIcon fontSize="1.25rem" />
+                  )}
+                </div>
+              </div>
+              {errors.password ? <p className={styles.helperText}>{errors.password.message}</p> : null}
+            </div>
+          )}
+        />
+        <div>
+          <RouterLink href={paths.auth.resetPassword} className={styles.link} style={{ fontSize: '0.875rem' }}>
+            Forgot password?
+          </RouterLink>
+        </div>
+        {errors.root ? (
+          <div className={`${styles.alert} ${styles.alertError}`}>
+            <p className={styles.alertText}>{errors.root.message}</p>
           </div>
-          {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
-          <Button disabled={isPending} type="submit" variant="contained">
-            Sign in
-          </Button>
-        </Stack>
+        ) : null}
+        <button disabled={isPending} type="submit" className={styles.button}>
+          Sign in
+        </button>
       </form>
-      <Alert color="warning">
-        Use{' '}
-        <Typography component="span" sx={{ fontWeight: 700 }} variant="inherit">
-          sofia@devias.io
-        </Typography>{' '}
-        with password{' '}
-        <Typography component="span" sx={{ fontWeight: 700 }} variant="inherit">
-          Secret1
-        </Typography>
-      </Alert>
-    </Stack>
+      <div className={`${styles.alert} ${styles.alertWarning}`}>
+        <p className={styles.alertText}>
+          Enter your credentials to continue.
+        </p>
+      </div>
+    </div>
   );
 }

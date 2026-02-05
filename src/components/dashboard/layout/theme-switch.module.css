@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background-color: var(--mui-palette-neutral-800);
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid var(--mui-palette-neutral-700);
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.container:hover {
+    background-color: var(--mui-palette-neutral-700);
+    border-color: var(--mui-palette-primary-main);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 0.75rem;
+    color: var(--mui-palette-neutral-400);
+    font-weight: 500;
+}
+
+.value {
+    font-size: 0.875rem;
+    color: var(--mui-palette-common-white);
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mui-palette-common-white);
+    padding: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.placeholder {
+    height: 66px;
+    background-color: var(--mui-palette-neutral-800);
+    border-radius: 8px;
+    border: 1px solid var(--mui-palette-neutral-700);
+    opacity: 0.5;
+}

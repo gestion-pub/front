@@ -1,0 +1,141 @@
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 12px;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+}
+
+.cardHeader {
+    padding: 24px;
+}
+
+.cardTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.cardSubheader {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+    margin: 0;
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--color-storm-grey-200);
+    margin: 0;
+}
+
+.cardContent {
+    padding: 24px;
+}
+
+.grid {
+    display: grid;
+    gap: 24px;
+}
+
+@media (min-width: 600px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sectionTitle {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-700);
+    cursor: pointer;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.cardActions {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--color-background-level1);
+}
+
+.button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-200);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-storm-grey-900);
+    width: 100%;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(214, 0, 0, 0.2);
+}
+
+.maxWidthSm {
+    max-width: 600px;
+}

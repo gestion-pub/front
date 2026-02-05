@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
-import Alert from '@mui/material/Alert';
 
 import { paths } from '@/paths';
 import { logger } from '@/lib/default-logger';
 import { useUser } from '@/hooks/use-user';
+import styles from './auth.module.css';
 
 export interface GuestGuardProps {
   children: React.ReactNode;
@@ -48,7 +48,11 @@ export function GuestGuard({ children }: GuestGuardProps): React.JSX.Element | n
   }
 
   if (error) {
-    return <Alert color="error">{error}</Alert>;
+    return (
+      <div className={`${styles.alert} ${styles.alertError}`}>
+        <p className={styles.alertText}>{error}</p>
+      </div>
+    );
   }
 
   return <React.Fragment>{children}</React.Fragment>;

@@ -1,13 +1,6 @@
 import * as React from 'react';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/navigation';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import { GearSixIcon } from '@phosphor-icons/react/dist/ssr/GearSix';
 import { SignOutIcon } from '@phosphor-icons/react/dist/ssr/SignOut';
 import { UserIcon } from '@phosphor-icons/react/dist/ssr/User';
@@ -17,13 +10,15 @@ import { authClient } from '@/lib/auth/client';
 import { logger } from '@/lib/default-logger';
 import { useUser } from '@/hooks/use-user';
 
+import styles from './user-popover.module.css';
+
 export interface UserPopoverProps {
   anchorEl: Element | null;
   onClose: () => void;
   open: boolean;
 }
 
-export function UserPopover({ anchorEl, onClose, open }: UserPopoverProps): React.JSX.Element {
+export function UserPopover({ anchorEl: _anchorEl, onClose, open }: UserPopoverProps): React.JSX.Element {
   const { checkSession } = useUser();
 
   const router = useRouter();
@@ -48,41 +43,45 @@ export function UserPopover({ anchorEl, onClose, open }: UserPopoverProps): Reac
     }
   }, [checkSession, router]);
 
+  if (!open) {
+    return <></>;
+  }
+
   return (
-    <Popover
-      anchorEl={anchorEl}
-      anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-      onClose={onClose}
-      open={open}
-      slotProps={{ paper: { sx: { width: '240px' } } }}
-    >
-      <Box sx={{ p: '16px 20px ' }}>
-        <Typography variant="subtitle1">Sofia Rivers</Typography>
-        <Typography color="text.secondary" variant="body2">
-          sofia.rivers@devias.io
-        </Typography>
-      </Box>
-      <Divider />
-      <MenuList disablePadding sx={{ p: '8px', '& .MuiMenuItem-root': { borderRadius: 1 } }}>
-        <MenuItem component={RouterLink} href={paths.dashboard.settings} onClick={onClose}>
-          <ListItemIcon>
-            <GearSixIcon fontSize="var(--icon-fontSize-md)" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem component={RouterLink} href={paths.dashboard.account} onClick={onClose}>
-          <ListItemIcon>
-            <UserIcon fontSize="var(--icon-fontSize-md)" />
-          </ListItemIcon>
-          Profile
-        </MenuItem>
-        <MenuItem onClick={handleSignOut}>
-          <ListItemIcon>
-            <SignOutIcon fontSize="var(--icon-fontSize-md)" />
-          </ListItemIcon>
-          Sign out
-        </MenuItem>
-      </MenuList>
-    </Popover>
+    <div className={styles.popover}>
+      <div className={styles.header}>
+        <p className={styles.name}>User Name</p>
+        <p className={styles.email}>
+          user@example.com
+        </p>
+      </div>
+      <hr className={styles.divider} />
+      <ul className={styles.list}>
+        <li className={styles.item}>
+          <RouterLink href={paths.dashboard.settings} className={styles.link} onClick={onClose}>
+            <span className={styles.icon}>
+              <GearSixIcon fontSize="1.25rem" />
+            </span>
+            Settings
+          </RouterLink>
+        </li>
+        <li className={styles.item}>
+          <RouterLink href={paths.dashboard.account} className={styles.link} onClick={onClose}>
+            <span className={styles.icon}>
+              <UserIcon fontSize="1.25rem" />
+            </span>
+            Profile
+          </RouterLink>
+        </li>
+        <li className={styles.item}>
+          <button className={styles.link} onClick={handleSignOut}>
+            <span className={styles.icon}>
+              <SignOutIcon fontSize="1.25rem" />
+            </span>
+            Sign out
+          </button>
+        </li>
+      </ul>
+    </div>
   );
 }

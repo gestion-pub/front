@@ -1,23 +1,20 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import { MagnifyingGlassIcon } from '@phosphor-icons/react/dist/ssr/MagnifyingGlass';
+import styles from './plannings-filters.module.css';
 
 export function CompaniesFilters(): React.JSX.Element {
   return (
-    <Card sx={{ p: 2 }}>
-      <OutlinedInput
-        defaultValue=""
-        fullWidth
-        placeholder="Search planning"
-        startAdornment={
-          <InputAdornment position="start">
-            <MagnifyingGlassIcon fontSize="var(--icon-fontSize-md)" />
-          </InputAdornment>
-        }
-        sx={{ maxWidth: '500px' }}
-      />
-    </Card>
+    <div className={styles.card}>
+      <div className={styles.searchContainer}>
+        <div className={styles.icon}>
+          <MagnifyingGlassIcon />
+        </div>
+        <input
+          defaultValue=""
+          placeholder="Search planning"
+          className={styles.input}
+        />
+      </div>
+    </div>
   );
 }

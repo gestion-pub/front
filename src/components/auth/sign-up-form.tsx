@@ -4,23 +4,13 @@ import * as React from 'react';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
-import InputLabel from '@mui/material/InputLabel';
-import Link from '@mui/material/Link';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { Controller, useForm } from 'react-hook-form';
 import { z as zod } from 'zod';
 
 import { paths } from '@/paths';
 import { authClient } from '@/lib/auth/client';
 import { useUser } from '@/hooks/use-user';
+import styles from './auth.module.css';
 
 const schema = zod.object({
   firstName: zod.string().min(1, { message: 'First name is required' }),
@@ -71,86 +61,113 @@ export function SignUpForm(): React.JSX.Element {
   );
 
   return (
-    <Stack spacing={3}>
-      <Stack spacing={1}>
-        <Typography variant="h4">Sign up</Typography>
-        <Typography color="text.secondary" variant="body2">
+    <div className={styles.stack}>
+      <div className={styles.header}>
+        <h4 className={styles.title}>Sign up</h4>
+        <p className={styles.subtitle}>
           Already have an account?{' '}
-          <Link component={RouterLink} href={paths.auth.signIn} underline="hover" variant="subtitle2">
+          <RouterLink href={paths.auth.signIn} className={styles.link}>
             Sign in
-          </Link>
-        </Typography>
-      </Stack>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          <Controller
-            control={control}
-            name="firstName"
-            render={({ field }) => (
-              <FormControl error={Boolean(errors.firstName)}>
-                <InputLabel>First name</InputLabel>
-                <OutlinedInput {...field} label="First name" />
-                {errors.firstName ? <FormHelperText>{errors.firstName.message}</FormHelperText> : null}
-              </FormControl>
-            )}
-          />
-          <Controller
-            control={control}
-            name="lastName"
-            render={({ field }) => (
-              <FormControl error={Boolean(errors.firstName)}>
-                <InputLabel>Last name</InputLabel>
-                <OutlinedInput {...field} label="Last name" />
-                {errors.firstName ? <FormHelperText>{errors.firstName.message}</FormHelperText> : null}
-              </FormControl>
-            )}
-          />
-          <Controller
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <FormControl error={Boolean(errors.email)}>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput {...field} label="Email address" type="email" />
-                {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
-              </FormControl>
-            )}
-          />
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <FormControl error={Boolean(errors.password)}>
-                <InputLabel>Password</InputLabel>
-                <OutlinedInput {...field} label="Password" type="password" />
-                {errors.password ? <FormHelperText>{errors.password.message}</FormHelperText> : null}
-              </FormControl>
-            )}
-          />
-          <Controller
-            control={control}
-            name="terms"
-            render={({ field }) => (
-              <div>
-                <FormControlLabel
-                  control={<Checkbox {...field} />}
-                  label={
-                    <React.Fragment>
-                      I have read the <Link>terms and conditions</Link>
-                    </React.Fragment>
-                  }
+          </RouterLink>
+        </p>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formStack}>
+        <Controller
+          control={control}
+          name="firstName"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <label htmlFor="firstName" className={styles.label}>First name</label>
+              <input
+                {...field}
+                id="firstName"
+                className={`${styles.input} ${errors.firstName ? styles.inputError : ''}`}
+              />
+              {errors.firstName ? <p className={styles.helperText}>{errors.firstName.message}</p> : null}
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="lastName"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <label htmlFor="lastName" className={styles.label}>Last name</label>
+              <input
+                {...field}
+                id="lastName"
+                className={`${styles.input} ${errors.lastName ? styles.inputError : ''}`}
+              />
+              {errors.lastName ? <p className={styles.helperText}>{errors.lastName.message}</p> : null}
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <label htmlFor="email" className={styles.label}>Email address</label>
+              <input
+                {...field}
+                id="email"
+                type="email"
+                className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+              />
+              {errors.email ? <p className={styles.helperText}>{errors.email.message}</p> : null}
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="password"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <label htmlFor="password" className={styles.label}>Password</label>
+              <input
+                {...field}
+                id="password"
+                type="password"
+                className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
+              />
+              {errors.password ? <p className={styles.helperText}>{errors.password.message}</p> : null}
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="terms"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <div className={styles.checkboxGroup}>
+                <input
+                  {...field}
+                  id="terms"
+                  type="checkbox"
+                  checked={field.value}
+                  value={undefined} // Checkbox doesn't use value prop the same way
+                  className={styles.checkbox}
                 />
-                {errors.terms ? <FormHelperText error>{errors.terms.message}</FormHelperText> : null}
+                <label htmlFor="terms" className={styles.checkboxLabel}>
+                  I have read the <RouterLink href="#" className={styles.link}>terms and conditions</RouterLink>
+                </label>
               </div>
-            )}
-          />
-          {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
-          <Button disabled={isPending} type="submit" variant="contained">
-            Sign up
-          </Button>
-        </Stack>
+              {errors.terms ? <p className={styles.helperText}>{errors.terms.message}</p> : null}
+            </div>
+          )}
+        />
+        {errors.root ? (
+          <div className={`${styles.alert} ${styles.alertError}`}>
+            <p className={styles.alertText}>{errors.root.message}</p>
+          </div>
+        ) : null}
+        <button disabled={isPending} type="submit" className={styles.button}>
+          Sign up
+        </button>
       </form>
-      <Alert color="warning">Created users are not persisted</Alert>
-    </Stack>
+      <div className={`${styles.alert} ${styles.alertWarning}`}>
+        <p className={styles.alertText}>Created users are not persisted</p>
+      </div>
+    </div>
   );
 }

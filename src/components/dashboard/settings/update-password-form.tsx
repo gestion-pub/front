@@ -1,44 +1,39 @@
 'use client';
 
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Divider from '@mui/material/Divider';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Stack from '@mui/material/Stack';
+import styles from './settings.module.css';
 
 export function UpdatePasswordForm(): React.JSX.Element {
   return (
     <form
+      className={styles.form}
       onSubmit={(event) => {
         event.preventDefault();
       }}
     >
-      <Card>
-        <CardHeader subheader="Update password" title="Password" />
-        <Divider />
-        <CardContent>
-          <Stack spacing={3} sx={{ maxWidth: 'sm' }}>
-            <FormControl fullWidth>
-              <InputLabel>Password</InputLabel>
-              <OutlinedInput label="Password" name="password" type="password" />
-            </FormControl>
-            <FormControl fullWidth>
-              <InputLabel>Confirm password</InputLabel>
-              <OutlinedInput label="Confirm password" name="confirmPassword" type="password" />
-            </FormControl>
-          </Stack>
-        </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">Update</Button>
-        </CardActions>
-      </Card>
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <h3 className={styles.cardTitle}>Password</h3>
+          <p className={styles.cardSubheader}>Update password</p>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.cardContent}>
+          <div className={`${styles.stack} ${styles.maxWidthSm}`}>
+            <div className={styles.formControl}>
+              <label htmlFor="password" className={styles.label}>Password</label>
+              <input id="password" name="password" type="password" className={styles.input} />
+            </div>
+            <div className={styles.formControl}>
+              <label htmlFor="confirmPassword" className={styles.label}>Confirm password</label>
+              <input id="confirmPassword" name="confirmPassword" type="password" className={styles.input} />
+            </div>
+          </div>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.cardActions}>
+          <button type="submit" className={styles.button}>Update</button>
+        </div>
+      </div>
     </form>
   );
 }

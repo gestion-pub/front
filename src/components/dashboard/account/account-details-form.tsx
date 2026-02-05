@@ -1,24 +1,13 @@
 'use client';
 
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Divider from '@mui/material/Divider';
-import FormControl from '@mui/material/FormControl';
-import Grid from '@mui/material/Grid';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Select from '@mui/material/Select';
+import styles from './account.module.css';
 
-const states = [
-  { value: 'alabama', label: 'Alabama' },
-  { value: 'new-york', label: 'New York' },
-  { value: 'san-francisco', label: 'San Francisco' },
-  { value: 'los-angeles', label: 'Los Angeles' },
+const roles = [
+  { value: '', label: 'Select a role' },
+  { value: 'admin', label: 'Admin' },
+  { value: 'commercial', label: 'Commercial' },
+  { value: 'controleur', label: 'Contrôleur' },
 ] as const;
 
 export function AccountDetailsForm(): React.JSX.Element {
@@ -28,90 +17,47 @@ export function AccountDetailsForm(): React.JSX.Element {
         event.preventDefault();
       }}
     >
-      <Card>
-        <CardHeader subheader="The information can be edited" title="Profile" />
-        <Divider />
-        <CardContent>
-          <Grid container spacing={3}>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth required>
-                <InputLabel>First name</InputLabel>
-                <OutlinedInput defaultValue="Sofia" label="First name" name="firstName" />
-              </FormControl>
-            </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth required>
-                <InputLabel>Last name</InputLabel>
-                <OutlinedInput defaultValue="Rivers" label="Last name" name="lastName" />
-              </FormControl>
-            </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth required>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput defaultValue="sofia@devias.io" label="Email address" name="email" />
-              </FormControl>
-            </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth>
-                <InputLabel>Phone number</InputLabel>
-                <OutlinedInput label="Phone number" name="phone" type="tel" />
-              </FormControl>
-            </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth>
-                <InputLabel>State</InputLabel>
-                <Select defaultValue="New York" label="State" name="state" variant="outlined">
-                  {states.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth>
-                <InputLabel>City</InputLabel>
-                <OutlinedInput label="City" />
-              </FormControl>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">Save details</Button>
-        </CardActions>
-      </Card>
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <h3 className={styles.cardTitle}>Profile</h3>
+          <p className={styles.cardSubheader}>The information can be edited</p>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.cardContent}>
+          <div className={styles.detailsGrid}>
+            <div className={styles.formControl}>
+              <label htmlFor="firstName" className={styles.label}>First name</label>
+              <input defaultValue="" id="firstName" name="firstName" className={styles.input} />
+            </div>
+            <div className={styles.formControl}>
+              <label htmlFor="lastName" className={styles.label}>Last name</label>
+              <input defaultValue="" id="lastName" name="lastName" className={styles.input} />
+            </div>
+            <div className={styles.formControl}>
+              <label htmlFor="email" className={styles.label}>Email address</label>
+              <input defaultValue="" id="email" name="email" className={styles.input} />
+            </div>
+            <div className={styles.formControl}>
+              <label htmlFor="phone" className={styles.label}>Phone number</label>
+              <input id="phone" name="phone" type="tel" className={styles.input} />
+            </div>
+            <div className={styles.formControl}>
+              <label htmlFor="role" className={styles.label}>Role</label>
+              <select defaultValue="" id="role" name="role" className={styles.select}>
+                {roles.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.cardActions}>
+          <button type="submit" className={styles.button}>Save details</button>
+        </div>
+      </div>
     </form>
   );
 }

@@ -1,125 +1,242 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Stack,
-  TextField,
-  Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-} from '@mui/material';
-import { Plus, Pencil, Trash } from '@phosphor-icons/react';
+import * as React from 'react';
+import { Plus } from '@phosphor-icons/react/dist/ssr/Plus';
+import { Pencil } from '@phosphor-icons/react/dist/ssr/Pencil';
+import { Trash } from '@phosphor-icons/react/dist/ssr/Trash';
+import { clientsService } from '@/services/clients.service';
+import type { Client } from '@/types/api';
+import styles from './clients.module.css';
 
-interface Client {
-  nom: string;
-  campagne: string; // 👉 هذا هو SPOT
-  tel: string;
-  email: string;
-}
+export default function ClientsPage(): React.JSX.Element {
+  const [clients, setClients] = React.useState<Client[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [open, setOpen] = React.useState(false);
+  const [editingClient, setEditingClient] = React.useState<Client | null>(null);
 
-export default function ClientsPage() {
-  const [clients, setClients] = useState<Client[]>([]);
-  const [open, setOpen] = useState(false);
-  const [editIndex, setEditIndex] = useState<number | null>(null);
-
-  const [form, setForm] = useState<Client>({
-    nom: '',
-    campagne: '',
-    tel: '',
+  const [form, setForm] = React.useState({
+    name: '',
     email: '',
+    campagne_nom: '',
+    adresse: '',
+    telephone: '',
   });
 
-  /* ===== LOAD ===== */
-  useEffect(() => {
-    const stored = localStorage.getItem('clients_data');
-    if (stored) setClients(JSON.parse(stored));
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('clients_data', JSON.stringify(clients));
-    localStorage.setItem(
-      'clients',
-      JSON.stringify(clients.map((c) => c.nom))
-    );
-  }, [clients]);
-
-  /* ===== HANDLERS ===== */
-  const saveClient = () => {
-    if (!form.nom || !form.campagne) return;
-
-    const updated =
-      editIndex !== null
-        ? clients.map((c, i) => (i === editIndex ? form : c))
-        : [...clients, form];
-
-    setClients(updated);
-    setForm({ nom: '', campagne: '', tel: '', email: '' });
-    setEditIndex(null);
-    setOpen(false);
+  /* ===== LOAD DATA FROM API ===== */
+  const loadClients = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await clientsService.getAll();
+      setClients(data);
+    } catch (error_) {
+      setError('Failed to load clients');
+      console.error('Error loading clients:', error_);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const editClient = (index: number) => {
-    setForm(clients[index]);
-    setEditIndex(index);
+  React.useEffect(() => {
+    loadClients();
+  }, []);
+
+  /* ===== HANDLERS ===== */
+  const saveClient = async () => {
+    if (!form.name || !form.telephone || !form.email) return;
+
+    try {
+      await (editingClient
+        ? clientsService.update(editingClient.id, form)
+        : clientsService.create(form));
+
+      await loadClients();
+
+      setForm({ name: '', email: '', campagne_nom: '', adresse: '', telephone: '' });
+      setEditingClient(null);
+      setOpen(false);
+    } catch (error_) {
+      console.error('Error saving client:', error_);
+      alert('Failed to save client');
+    }
+  };
+
+  const handleEdit = (client: Client) => {
+    setEditingClient(client);
+    setForm({
+      name: client.name,
+      email: client.email,
+      campagne_nom: client.campagne_nom,
+      adresse: client.adresse,
+      telephone: client.telephone,
+    });
     setOpen(true);
   };
 
-  const deleteClient = (index: number) => {
-    setClients(clients.filter((_, i) => i !== index));
+  const handleDelete = async (id: number) => {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce client ?')) return;
+
+    try {
+      await clientsService.delete(id);
+      await loadClients();
+    } catch (error_) {
+      console.error('Error deleting client:', error_);
+      alert('Failed to delete client');
+    }
+  };
+
+  const handleAddNew = () => {
+    setEditingClient(null);
+    setForm({ name: '', email: '', campagne_nom: '', adresse: '', telephone: '' });
+    setOpen(true);
   };
 
   /* ===== UI ===== */
   return (
-    <Box p={4}>
-      <Stack direction="row" justifyContent="space-between" mb={3}>
-        <Typography variant="h5">Clients</Typography>
-        <Button variant="contained" startIcon={<Plus />} onClick={() => setOpen(true)}>
+    <div className={styles.container}>
+      {/* Header */}
+      <div className={styles.header}>
+        <h1 className={styles.title}>Clients</h1>
+        <button className={styles.button} onClick={handleAddNew}>
+          <Plus size={20} />
           Add Client
-        </Button>
-      </Stack>
+        </button>
+      </div>
 
-      {clients.map((c, i) => (
-        <Box key={i} p={2} mb={2} border="1px solid #ddd" borderRadius={2}>
-          <Stack direction="row" justifyContent="space-between">
-            <Box>
-              <Typography fontWeight={600}>{c.nom}</Typography>
-              <Typography variant="body2">
-                Spot: {c.campagne} | Tel: {c.tel} | {c.email}
-              </Typography>
-            </Box>
-            <Stack direction="row">
-              <IconButton onClick={() => editClient(i)}>
-                <Pencil size={18} />
-              </IconButton>
-              <IconButton color="error" onClick={() => deleteClient(i)}>
-                <Trash size={18} />
-              </IconButton>
-            </Stack>
-          </Stack>
-        </Box>
-      ))}
+      {/* Loading State */}
+      {loading && (
+        <div className={styles.loadingContainer}>
+          <p>Loading clients...</p>
+        </div>
+      )}
 
-      {/* ===== DIALOG ===== */}
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
-        <DialogTitle>{editIndex !== null ? 'Edit Client' : 'Add Client'}</DialogTitle>
-        <DialogContent>
-          <Stack spacing={2} mt={1}>
-            <TextField label="Nom client" value={form.nom} onChange={(e) => setForm({ ...form, nom: e.target.value })} />
-            <TextField label="Spot (Campagne)" value={form.campagne} onChange={(e) => setForm({ ...form, campagne: e.target.value })} />
-            <TextField label="Téléphone" value={form.tel} onChange={(e) => setForm({ ...form, tel: e.target.value })} />
-            <TextField label="Email (.tn / .com)" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button variant="contained" onClick={saveClient}>Save</Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+      {/* Error State */}
+      {error && (
+        <div className={styles.errorContainer}>
+          <p>{error}</p>
+          <button onClick={loadClients} className={styles.buttonSecondary}>
+            Retry
+          </button>
+        </div>
+      )}
+
+      {/* Grid */}
+      {!loading && !error && (
+        <div className={styles.grid}>
+          {clients.length === 0 && (
+            <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '24px', color: '#666' }}>
+              Aucun client
+            </div>
+          )}
+
+          {clients.map((client) => (
+            <div key={client.id} className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div>
+                  <h3 className={styles.cardTitle}>{client.name}</h3>
+                  <span className={styles.cardSubtitle}>{client.email}</span>
+                </div>
+              </div>
+
+              <div className={styles.cardBody}>
+                <div className={styles.cardRow}>
+                  <span className={styles.cardLabel}>Téléphone</span>
+                  <span className={styles.cardValue}>{client.telephone}</span>
+                </div>
+                <div className={styles.cardRow}>
+                  <span className={styles.cardLabel}>Campagne</span>
+                  <span className={styles.cardValue}>{client.campagne_nom || 'N/A'}</span>
+                </div>
+                <div className={styles.cardRow}>
+                  <span className={styles.cardLabel}>Adresse</span>
+                  <span className={styles.cardValue}>{client.adresse || '-'}</span>
+                </div>
+              </div>
+
+              <div className={styles.cardFooter}>
+                <div className={styles.actions}>
+                  <button className={styles.iconButton} onClick={() => handleEdit(client)} title="Modifier">
+                    <Pencil size={20} />
+                  </button>
+                  <button
+                    className={`${styles.iconButton} ${styles.iconButtonError}`}
+                    onClick={() => handleDelete(client.id)}
+                    title="Supprimer"
+                  >
+                    <Trash size={20} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Dialog */}
+      {open ? (
+        <div className={styles.modalOverlay} onClick={() => setOpen(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>
+                {editingClient ? 'Edit Client' : 'Add Client'}
+              </h2>
+            </div>
+            <div className={styles.modalBody}>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Nom</label>
+                <input
+                  className={styles.input}
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  autoFocus
+                />
+              </div>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Email</label>
+                <input
+                  className={styles.input}
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                />
+              </div>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Campagne</label>
+                <input
+                  className={styles.input}
+                  value={form.campagne_nom}
+                  onChange={(e) => setForm({ ...form, campagne_nom: e.target.value })}
+                />
+              </div>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Adresse</label>
+                <input
+                  className={styles.input}
+                  value={form.adresse}
+                  onChange={(e) => setForm({ ...form, adresse: e.target.value })}
+                />
+              </div>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Téléphone</label>
+                <input
+                  className={styles.input}
+                  value={form.telephone}
+                  onChange={(e) => setForm({ ...form, telephone: e.target.value })}
+                />
+              </div>
+            </div>
+            <div className={styles.modalFooter}>
+              <button className={styles.buttonSecondary} onClick={() => setOpen(false)}>
+                Cancel
+              </button>
+              <button className={styles.button} onClick={saveClient}>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 }

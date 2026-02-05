@@ -1,0 +1,79 @@
+.popover {
+    background-color: var(--color-background-paper);
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: absolute;
+    /* Controlled by parent or a positioning library usually, but here likely assumes anchorEl context or fixed for now? MUI Popover is portalled. */
+    /* For simple replacement without Popper.js, we might position it relative to the avatar or just fixed top-right for now */
+    top: 70px;
+    /* Approximate below header */
+    right: 20px;
+    width: 240px;
+    z-index: 1200;
+}
+
+.header {
+    padding: 16px 20px;
+}
+
+.name {
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.email {
+    font-size: 0.875rem;
+    margin: 0;
+    color: var(--color-text-secondary);
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--color-storm-grey-200);
+    margin: 0;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+}
+
+.item {
+    /* MenuItem styles */
+}
+
+.link {
+    align-items: center;
+    border-radius: 4px;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    display: flex;
+    gap: 12px;
+    padding: 6px 16px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    background: transparent;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    font-family: inherit;
+    text-align: left;
+}
+
+.link:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    color: var(--color-storm-grey-500);
+}

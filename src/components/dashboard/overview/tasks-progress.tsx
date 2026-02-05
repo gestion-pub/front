@@ -1,39 +1,35 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import LinearProgress from '@mui/material/LinearProgress';
-import Stack from '@mui/material/Stack';
-import type { SxProps } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import { ListBulletsIcon } from '@phosphor-icons/react/dist/ssr/ListBullets';
 
+import styles from './stats-card.module.css';
+
 export interface TasksProgressProps {
-  sx?: SxProps;
+  sx?: React.CSSProperties;
   value: number;
 }
 
 export function TasksProgress({ value, sx }: TasksProgressProps): React.JSX.Element {
   return (
-    <Card sx={sx}>
-      <CardContent>
-        <Stack spacing={2}>
-          <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between' }} spacing={3}>
-            <Stack spacing={1}>
-              <Typography color="text.secondary" gutterBottom variant="overline">
-                Task Progress
-              </Typography>
-              <Typography variant="h4">{value}%</Typography>
-            </Stack>
-            <Avatar sx={{ backgroundColor: 'var(--mui-palette-warning-main)', height: '56px', width: '56px' }}>
-              <ListBulletsIcon fontSize="var(--icon-fontSize-lg)" />
-            </Avatar>
-          </Stack>
-          <div>
-            <LinearProgress value={value} variant="determinate" />
+    <div className={styles.card} style={sx}>
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <div className={styles.titleWrapper}>
+            <h6 className={styles.title}>Task Progress</h6>
+            <h3 className={styles.value}>{value}%</h3>
           </div>
-        </Stack>
-      </CardContent>
-    </Card>
+          <div className={`${styles.avatar} ${styles.avatarWarning}`}>
+            <ListBulletsIcon fontSize="var(--icon-fontSize-lg)" />
+          </div>
+        </div>
+        <div>
+          <div className={styles.progressContainer}>
+            <div
+              className={`${styles.progressBar} ${styles.progressBarWarning}`}
+              style={{ width: `${value}%` }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

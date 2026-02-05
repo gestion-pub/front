@@ -1,194 +1,272 @@
 'use client';
 
-import { useState } from 'react';
-import {
-  Box,
-  Button,
-  Typography,
-  Stack,
-  TextField,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Divider,
-} from '@mui/material';
-import { Plus, Pencil, Trash } from '@phosphor-icons/react';
+import * as React from 'react';
+import { useRouter } from 'next/navigation';
+import { Plus } from '@phosphor-icons/react/dist/ssr/Plus';
+import { CalendarBlank } from '@phosphor-icons/react/dist/ssr/CalendarBlank';
+import { X } from '@phosphor-icons/react/dist/ssr/X';
+import styles from './conducteurs.module.css';
+import { conducteursService } from '@/services/conducteurs.service';
+import { planningsService } from '@/services/plannings.service';
+import type { Conducteur } from '@/types/conducteur';
 
-/* ================= TYPE ================= */
+export default function ConducteursPage(): React.JSX.Element {
+  const router = useRouter();
+  const [conducteurs, setConducteurs] = React.useState<Conducteur[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [openModal, setOpenModal] = React.useState(false);
 
-interface Conducteur {
-  id: number;
-  heures: string;
-  nomClient: string;
-  spot: string;
-  duree: string;
-  spot_id: number;
-}
+  // New Conducteur Form
+  const [newConducteurName, setNewConducteurName] = React.useState('');
+  const [newConducteurDate, setNewConducteurDate] = React.useState(new Date().toISOString().split('T')[0]);
 
-/* ================= PAGE ================= */
+  // Plannings for selected date
+  const [datePlannings, setDatePlannings] = React.useState<any[]>([]);
+  const [loadingPlannings, setLoadingPlannings] = React.useState(false);
 
-export default function ConducteursPage() {
-  const [conducteurs, setConducteurs] = useState<Conducteur[]>([
-    { id: 1, heures: '10:00', nomClient: 'Client A', spot: 'Spot 1', duree: '30min', spot_id: 101 },
-    { id: 2, heures: '11:00', nomClient: 'Client B', spot: 'Spot 2', duree: '45min', spot_id: 102 },
-  ]);
+  // Date filter
+  const [filterDate, setFilterDate] = React.useState<string>('');
 
-  const [form, setForm] = useState<Conducteur>({
-    id: 0,
-    heures: '',
-    nomClient: '',
-    spot: '',
-    duree: '',
-    spot_id: 0,
-  });
-
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [openDialog, setOpenDialog] = useState(false);
-
-  /* ================= ACTIONS ================= */
-
-  const handleAddClick = () => {
-    setForm({ id: Date.now(), heures: '', nomClient: '', spot: '', duree: '', spot_id: 0 });
-    setEditingIndex(null);
-    setOpenDialog(true);
-  };
-
-  const handleEdit = (index: number) => {
-    setForm(conducteurs[index]);
-    setEditingIndex(index);
-    setOpenDialog(true);
-  };
-
-  const handleDelete = (id: number) => {
-    setConducteurs((prev) => prev.filter((c) => c.id !== id));
-  };
-
-  const handleSave = () => {
-    if (!form.nomClient.trim() || !form.spot.trim()) return;
-
-    if (editingIndex !== null) {
-      const updated = [...conducteurs];
-      updated[editingIndex] = form;
-      setConducteurs(updated);
-    } else {
-      setConducteurs([...conducteurs, form]);
+  const fetchConducteurs = async () => {
+    try {
+      setLoading(true);
+      const data = await conducteursService.getAll();
+      setConducteurs(data);
+      setError(null);
+    } catch (err) {
+      console.error('Failed to fetch conducteurs:', err);
+      setError('Failed to load conducteurs. Please try again.');
+    } finally {
+      setLoading(false);
     }
-
-    setOpenDialog(false);
-    setForm({ id: 0, heures: '', nomClient: '', spot: '', duree: '', spot_id: 0 });
-    setEditingIndex(null);
   };
 
-  /* ================= UI ================= */
+  React.useEffect(() => {
+    fetchConducteurs();
+  }, []);
+
+  // Filter conducteurs by date
+  const filteredConducteurs = React.useMemo(() => {
+    if (!filterDate) return conducteurs;
+    return conducteurs.filter(c => c.date === filterDate);
+  }, [conducteurs, filterDate]);
+
+  // Fetch plannings for selected date
+  React.useEffect(() => {
+    const fetchPlanningsForDate = async () => {
+      if (!newConducteurDate) return;
+
+      try {
+        setLoadingPlannings(true);
+        const response = await planningsService.getAll();
+        const filtered = response.data.filter((p: any) => p.date === newConducteurDate);
+        setDatePlannings(filtered);
+      } catch (err) {
+        console.error('Failed to fetch plannings:', err);
+      } finally {
+        setLoadingPlannings(false);
+      }
+    };
+
+    if (openModal) {
+      fetchPlanningsForDate();
+    }
+  }, [newConducteurDate, openModal]);
+
+  const handleCreate = async () => {
+    if (!newConducteurName || !newConducteurDate) return;
+
+    try {
+      const newConducteur = await conducteursService.create({
+        name: newConducteurName,
+        date: newConducteurDate,
+        status: 'draft',
+        slots: []
+      });
+
+      setOpenModal(false);
+      // Navigate to detail page for editing
+      router.push(`/dashboard/conducteurs/${newConducteur.id}`);
+    } catch (err) {
+      console.error('Failed to create conducteur:', err);
+      alert('Failed to create conducteur');
+    }
+  };
+
+  // Helper to format date
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(date);
+  };
 
   return (
-    <Box p={3}>
+    <div className={styles.container}>
       {/* Header */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5">Conducteurs</Typography>
-        <Button
-          variant="contained"
-          startIcon={<Plus size={20} />}
-          onClick={handleAddClick}
-        >
-          Manage Conducteur
-        </Button>
-      </Stack>
-
-      {/* List */}
-      <Box sx={{ border: '1px solid #ddd', borderRadius: 2 }}>
-        {conducteurs.length === 0 && (
-          <Typography p={3}>Aucune donnée</Typography>
-        )}
-
-        {conducteurs.map((c, index) => (
-          <Box key={c.id}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              p={2}
-            >
-              <Stack spacing={0.5}>
-                <Typography fontWeight={600}>{c.nomClient}</Typography>
-                <Typography variant="caption" color="text.secondary">
-                  ID: {c.id} | Heures: {c.heures} | Spot: {c.spot} | Durée: {c.duree} | Spot ID: {c.spot_id}
-                </Typography>
-              </Stack>
-
-              {/* Actions */}
-              <Stack direction="row" spacing={1}>
-                <IconButton onClick={() => handleEdit(index)}>
-                  <Pencil size={18} />
-                </IconButton>
-                <IconButton color="error" onClick={() => handleDelete(c.id)}>
-                  <Trash size={18} />
-                </IconButton>
-              </Stack>
-            </Stack>
-            <Divider />
-          </Box>
-        ))}
-      </Box>
-
-      {/* Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} fullWidth maxWidth="sm">
-        <DialogTitle>
-          {editingIndex !== null ? 'Edit Conducteur' : 'Add Conducteur'}
-        </DialogTitle>
-
-        <DialogContent>
-          <Stack spacing={2} mt={1}>
-            <TextField
-              label="ID"
-              value={form.id}
-              disabled
-              fullWidth
+      <div className={styles.header}>
+        <h1 className={styles.title}>Conducteurs</h1>
+        <div className={styles.headerActions}>
+          <div className={styles.dateFilter}>
+            <CalendarBlank size={20} />
+            <input
+              type="date"
+              value={filterDate}
+              onChange={(e) => setFilterDate(e.target.value)}
+              className={styles.dateInput}
+              placeholder="Filtrer par date"
             />
-            <TextField
-              label="Heures"
-              value={form.heures}
-              onChange={(e) => setForm({ ...form, heures: e.target.value })}
-              fullWidth
-              autoFocus
-            />
-            <TextField
-              label="Nom Client"
-              value={form.nomClient}
-              onChange={(e) => setForm({ ...form, nomClient: e.target.value })}
-              fullWidth
-            />
-            <TextField
-              label="Spot"
-              value={form.spot}
-              onChange={(e) => setForm({ ...form, spot: e.target.value })}
-              fullWidth
-            />
-            <TextField
-              label="Durée"
-              value={form.duree}
-              onChange={(e) => setForm({ ...form, duree: e.target.value })}
-              fullWidth
-            />
-            <TextField
-              label="Spot ID"
-              type="number"
-              value={form.spot_id}
-              onChange={(e) => setForm({ ...form, spot_id: Number(e.target.value) })}
-              fullWidth
-            />
-          </Stack>
-        </DialogContent>
+            {filterDate && (
+              <button
+                className={styles.clearButton}
+                onClick={() => setFilterDate('')}
+                title="Effacer le filtre"
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
+          <button className={styles.button} onClick={() => setOpenModal(true)}>
+            <Plus size={20} />
+            Nouveau Conducteur
+          </button>
+        </div>
+      </div>
 
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button variant="contained" onClick={handleSave}>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+      {/* Error State */}
+      {error && (
+        <div className={styles.errorContainer}>
+          {error}
+        </div>
+      )}
+
+      {/* Loading State */}
+      {loading ? (
+        <div className={styles.loadingContainer}>
+          Chargement...
+        </div>
+      ) : (
+        <div className={styles.grid}>
+          {filteredConducteurs.length === 0 ? (
+            <div className={styles.emptyState}>
+              {filterDate ? 'Aucun conducteur trouvé pour cette date' : 'Aucun conducteur'}
+            </div>
+          ) : (
+            filteredConducteurs.map((conducteur) => (
+              <div
+                key={conducteur.id}
+                className={styles.card}
+                onClick={() => router.push(`/dashboard/conducteurs/${conducteur.id}`)}
+              >
+                <div className={styles.cardHeader}>
+                  <div>
+                    <h3 className={styles.cardTitle}>{conducteur.name}</h3>
+                    <div className={styles.cardDate}>
+                      <CalendarBlank size={16} />
+                      {formatDate(conducteur.date)}
+                    </div>
+                  </div>
+                  <span className={`${styles.badge} ${conducteur.status === 'published' ? styles.badgePublished : styles.badgeDraft
+                    }`}>
+                    {conducteur.status === 'published' ? 'Publié' : 'Brouillon'}
+                  </span>
+                </div>
+
+                <div className={styles.cardStats}>
+                  <div className={styles.statItem}>
+                    <span className={styles.statValue}>
+                      {conducteur.slots?.length || 0}
+                    </span>
+                    <span className={styles.statLabel}>Campagnes</span>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+
+      {/* Create Modal */}
+      {openModal && (
+        <div className={styles.modalOverlay} onClick={() => setOpenModal(false)}>
+          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>Nouveau Conducteur</h2>
+              <button className={styles.closeButton} onClick={() => setOpenModal(false)}>
+                <X size={20} />
+              </button>
+            </div>
+            <div className={styles.modalBody}>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Nom du conducteur</label>
+                <input
+                  className={styles.input}
+                  value={newConducteurName}
+                  onChange={e => setNewConducteurName(e.target.value)}
+                  placeholder="Ex: Conducteur Matin"
+                  autoFocus
+                />
+              </div>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Date</label>
+                <input
+                  type="date"
+                  className={styles.input}
+                  value={newConducteurDate}
+                  onChange={e => setNewConducteurDate(e.target.value)}
+                />
+              </div>
+
+              {/* Plannings for selected date */}
+              {newConducteurDate && (
+                <div className={styles.planningsSection}>
+                  <h3 className={styles.sectionTitle}>
+                    Plannings pour le {formatDate(newConducteurDate)}
+                  </h3>
+
+                  {loadingPlannings ? (
+                    <div className={styles.planningsLoading}>Chargement...</div>
+                  ) : datePlannings.length > 0 ? (
+                    <div className={styles.planningsList}>
+                      {datePlannings.map((planning, idx) => (
+                        <div key={idx} className={styles.planningItem}>
+                          <div className={styles.planningTime}>{planning.heure}</div>
+                          <div className={styles.planningDetails}>
+                            <div className={styles.planningSpot}>{planning.spot}</div>
+                            <div className={styles.planningDuration}>{planning.duree}s</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.planningsEmpty}>
+                      Aucun planning pour cette date
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className={styles.modalFooter}>
+              <button
+                className={styles.buttonSecondary}
+                onClick={() => setOpenModal(false)}
+              >
+                Annuler
+              </button>
+              <button
+                className={styles.button}
+                onClick={handleCreate}
+                disabled={!newConducteurName || !newConducteurDate}
+              >
+                Créer et Éditer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

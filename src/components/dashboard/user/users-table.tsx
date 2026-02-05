@@ -1,22 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import Checkbox from '@mui/material/Checkbox';
-import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-
 import { useSelection } from '@/hooks/use-selection';
+import styles from './users-table.module.css';
 
 function noop(): void {}
 
@@ -49,78 +35,77 @@ export function UsersTable({
   const selectedAll = rows.length > 0 && selected.size === rows.length;
 
   return (
-    <Card>
-      <Box sx={{ overflowX: 'auto' }}>
-        <Table sx={{ minWidth: 800 }}>
-          <TableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
+    <div className={styles.card}>
+      <div className={styles.tableContainer}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th style={{ width: '40px' }}>
+                <input
+                  type="checkbox"
                   checked={selectedAll}
-                  indeterminate={selectedSome}
+                  ref={(input) => {
+                    if (input) input.indeterminate = selectedSome;
+                  }}
                   onChange={(e) => (e.target.checked ? selectAll() : deselectAll())}
                 />
-              </TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
-              <TableCell align="right">Action</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
+              </th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th style={{ textAlign: 'right' }}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
             {rows.map((row) => {
               const isSelected = selected.has(row.id);
 
               return (
-                <TableRow hover key={row.id} selected={isSelected}>
-                  <TableCell padding="checkbox">
-                    <Checkbox
+                <tr key={row.id} className={`${styles.tableRow} ${isSelected ? styles.selected : ''}`}>
+                  <td>
+                    <input
+                      type="checkbox"
                       checked={isSelected}
                       onChange={(e) =>
                         e.target.checked ? selectOne(row.id) : deselectOne(row.id)
                       }
                     />
-                  </TableCell>
-
-                  <TableCell>
-                    <Stack direction="row" spacing={2} alignItems="center">
-                      <Avatar src={row.avatar} />
-                      <Typography variant="subtitle2">{row.name}</Typography>
-                    </Stack>
-                  </TableCell>
-
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.role}</TableCell>
-
-                  <TableCell align="right">
-                    <Stack direction="row" spacing={1} justifyContent="flex-end">
-                      <Button size="small" variant="outlined">
-                        Edit
-                      </Button>
-                      <Button size="small" color="error" variant="outlined">
-                        Delete
-                      </Button>
-                    </Stack>
-                  </TableCell>
-                </TableRow>
+                  </td>
+                  <td>
+                    <div className={styles.userInfo}>
+                      {row.avatar ? (
+                        <img src={row.avatar} alt={row.name} className={styles.avatar} />
+                      ) : (
+                        <div className={styles.avatarPlaceholder}>
+                          {row.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <span className={styles.userName}>{row.name}</span>
+                    </div>
+                  </td>
+                  <td>{row.email}</td>
+                  <td>{row.role}</td>
+                  <td>
+                    <div className={styles.actions}>
+                      <button className={styles.buttonSmall}>Edit</button>
+                      <button className={`${styles.buttonSmall} ${styles.buttonError}`}>Delete</button>
+                    </div>
+                  </td>
+                </tr>
               );
             })}
-          </TableBody>
-        </Table>
-      </Box>
-
-      <Divider />
-
-      <TablePagination
-        component="div"
-        count={count}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        onPageChange={noop}
-        onRowsPerPageChange={noop}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </Card>
+          </tbody>
+        </table>
+      </div>
+      <div className={styles.pagination}>
+        <span>
+          Page {page + 1} of {Math.ceil(count / rowsPerPage)}
+        </span>
+        {/* Placeholder pagination buttons since logic wasn't fully implemented in original */}
+        <button className={styles.paginationButton} disabled={page === 0} onClick={noop}>Previous</button>
+        <button className={styles.paginationButton} disabled={(page + 1) * rowsPerPage >= count} onClick={noop}>Next</button>
+      </div>
+    </div>
   );
 }
+

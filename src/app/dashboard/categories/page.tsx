@@ -1,199 +1,174 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Typography,
-  Stack,
-  TextField,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@mui/material';
-import { Plus, Pencil, Trash } from '@phosphor-icons/react';
+import * as React from 'react';
+import { Plus } from '@phosphor-icons/react/dist/ssr/Plus';
+import { Pencil } from '@phosphor-icons/react/dist/ssr/Pencil';
+import { Trash } from '@phosphor-icons/react/dist/ssr/Trash';
+import { categoriesService } from '@/services/categories.service';
+import type { Categorie } from '@/types/api';
+import styles from './categories.module.css';
 
-/* ================= TYPE ================= */
+export default function CategoriesPage(): React.JSX.Element {
+  const [categories, setCategories] = React.useState<Categorie[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [form, setForm] = React.useState({ nom_categorie: '' });
+  const [editingCategorie, setEditingCategorie] = React.useState<Categorie | null>(null);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
-interface Categorie {
-  id: number;
-  nom: string;
-}
-
-/* ================= PAGE ================= */
-
-export default function CategoriesPage() {
-  const [categories, setCategories] = useState<Categorie[]>([]);
-  const [form, setForm] = useState<{ nom: string }>({ nom: '' });
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [search, setSearch] = useState(''); // <-- pour la recherche
-
-  /* ================= LOAD ================= */
-
-  useEffect(() => {
-    const stored = localStorage.getItem('categories');
-    if (stored) {
-      setCategories(JSON.parse(stored));
+  /* ===== LOAD DATA ===== */
+  const loadCategories = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await categoriesService.getAll();
+      setCategories(data);
+    } catch (error_) {
+      setError('Failed to load categories');
+      console.error('Error loading categories:', error_);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  React.useEffect(() => {
+    loadCategories();
   }, []);
 
-  /* ================= HELPERS ================= */
+  /* ===== ACTIONS ===== */
+  const handleSave = async () => {
+    if (!form.nom_categorie.trim()) return;
 
-  const getNextId = () => {
-    if (categories.length === 0) return 1;
-    return Math.max(...categories.map((c) => c.id)) + 1;
+    try {
+      await (editingCategorie
+        ? categoriesService.update(editingCategorie.id, form)
+        : categoriesService.create(form));
+
+      await loadCategories();
+      setForm({ nom_categorie: '' });
+      setEditingCategorie(null);
+      setOpenDialog(false);
+    } catch (error_) {
+      console.error('Error saving category:', error_);
+      alert('Failed to save category');
+    }
   };
 
-  const saveToStorage = (data: Categorie[]) => {
-    setCategories(data);
-    localStorage.setItem('categories', JSON.stringify(data));
+  const handleEdit = (categorie: Categorie) => {
+    setEditingCategorie(categorie);
+    setForm({ nom_categorie: categorie.nom_categorie });
+    setOpenDialog(true);
   };
 
-  /* ================= ACTIONS ================= */
+  const handleDelete = async (id: number) => {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) return;
+
+    try {
+      await categoriesService.delete(id);
+      await loadCategories();
+    } catch (error_) {
+      console.error('Error deleting category:', error_);
+      alert('Failed to delete category');
+    }
+  };
 
   const handleAddClick = () => {
-    setForm({ nom: '' });
-    setEditingId(null);
+    setForm({ nom_categorie: '' });
+    setEditingCategorie(null);
     setOpenDialog(true);
   };
 
-  const handleEdit = (cat: Categorie) => {
-    setForm({ nom: cat.nom });
-    setEditingId(cat.id);
-    setOpenDialog(true);
-  };
-
-  const handleDelete = (id: number) => {
-    const updated = categories.filter((c) => c.id !== id);
-    saveToStorage(updated);
-  };
-
-  const handleSave = () => {
-    if (!form.nom.trim()) return;
-
-    if (editingId !== null) {
-      const updated = categories.map((c) =>
-        c.id === editingId ? { ...c, nom: form.nom } : c
-      );
-      saveToStorage(updated);
-    } else {
-      const newCat: Categorie = {
-        id: getNextId(),
-        nom: form.nom,
-      };
-      saveToStorage([...categories, newCat]);
-    }
-
-    setOpenDialog(false);
-    setForm({ nom: '' });
-    setEditingId(null);
-  };
-
-  /* ================= FILTRAGE ================= */
-
-  const filteredCategories = categories.filter(
-    (c) =>
-      c.nom.toLowerCase().includes(search.toLowerCase()) || // nom contient la recherche
-      c.id.toString().includes(search) // ID contient la recherche
-  );
-
-  /* ================= UI ================= */
-
+  /* ===== UI ===== */
   return (
-    <Box p={3}>
+    <div className={styles.container}>
       {/* Header */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="h5">Catégories</Typography>
-        <Button
-          variant="contained"
-          startIcon={<Plus size={20} />}
-          onClick={handleAddClick}
-        >
-          Add Catégorie
-        </Button>
-      </Stack>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Catégories</h1>
+        <button className={styles.button} onClick={handleAddClick}>
+          <Plus size={20} />
+          Add Category
+        </button>
+      </div>
 
-      {/* Zone de recherche */}
-      <TextField
-        placeholder="Rechercher par ID ou nom..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        fullWidth
-        sx={{ mb: 2 }}
-      />
+      {/* Loading State */}
+      {loading && (
+        <div className={styles.loadingContainer}>
+          <p>Loading categories...</p>
+        </div>
+      )}
 
-      {/* Table */}
-      <TableContainer component={Paper} sx={{ borderRadius: 2 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Nom catégorie</TableCell>
-              <TableCell align="right">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {filteredCategories.length === 0 && (
-              <TableRow>
-                <TableCell colSpan={3} align="center">
-                  Aucune catégorie
-                </TableCell>
-              </TableRow>
-            )}
+      {/* Error State */}
+      {error && (
+        <div className={styles.errorContainer}>
+          <p>{error}</p>
+          <button onClick={loadCategories} className={styles.buttonSecondary}>
+            Retry
+          </button>
+        </div>
+      )}
 
-            {filteredCategories.map((cat) => (
-              <TableRow key={cat.id}>
-                <TableCell>{cat.id}</TableCell>
-                <TableCell>{cat.nom}</TableCell>
-                <TableCell align="right">
-                  <IconButton onClick={() => handleEdit(cat)}>
-                    <Pencil size={18} />
-                  </IconButton>
-                  <IconButton color="error" onClick={() => handleDelete(cat.id)}>
-                    <Trash size={18} />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {/* Grid List */}
+      {!loading && !error && (
+        <div className={styles.grid}>
+          {categories.length === 0 && (
+            <div className={styles.emptyState}>
+              <p>Aucune catégorie</p>
+            </div>
+          )}
+
+          {categories.map((cat) => (
+            <div key={cat.id} className={styles.card}>
+              <div className={styles.cardContent}>
+                <h3 className={styles.cardTitle}>{cat.nom_categorie}</h3>
+              </div>
+              <div className={styles.cardActions}>
+                <button className={styles.iconButton} onClick={() => handleEdit(cat)} title="Edit">
+                  <Pencil size={20} />
+                </button>
+                <button
+                  className={`${styles.iconButton} ${styles.iconButtonError}`}
+                  onClick={() => handleDelete(cat.id)}
+                  title="Delete"
+                >
+                  <Trash size={20} />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} fullWidth maxWidth="sm">
-        <DialogTitle>
-          {editingId !== null ? 'Edit Catégorie' : 'Add Catégorie'}
-        </DialogTitle>
-
-        <DialogContent>
-          <Stack spacing={2} mt={1}>
-            <TextField
-              label="Nom catégorie"
-              value={form.nom}
-              onChange={(e) => setForm({ nom: e.target.value })}
-              fullWidth
-              autoFocus
-            />
-          </Stack>
-        </DialogContent>
-
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button variant="contained" onClick={handleSave}>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+      {openDialog ? (
+        <div className={styles.modalOverlay} onClick={() => setOpenDialog(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>
+                {editingCategorie ? 'Edit Category' : 'Add Category'}
+              </h2>
+            </div>
+            <div className={styles.modalBody}>
+              <div className={styles.formControl}>
+                <label className={styles.label}>Nom de la catégorie</label>
+                <input
+                  className={styles.input}
+                  value={form.nom_categorie}
+                  onChange={(e) => setForm({ nom_categorie: e.target.value })}
+                  autoFocus
+                />
+              </div>
+            </div>
+            <div className={styles.modalFooter}>
+              <button className={styles.buttonSecondary} onClick={() => setOpenDialog(false)}>
+                Cancel
+              </button>
+              <button className={styles.button} onClick={handleSave}>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 }

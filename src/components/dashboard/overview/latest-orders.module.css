@@ -1,0 +1,75 @@
+.tableContainer {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tableHead th {
+    background-color: var(--color-background-paper);
+    color: var(--color-storm-grey-500);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.tableBody tr {
+    transition: background-color 0.2s;
+}
+
+.tableBody tr:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.tableBody td {
+    padding: 16px 24px;
+    color: var(--color-storm-grey-900);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.57;
+    border-bottom: 1px solid var(--color-storm-grey-100);
+}
+
+.tableBody tr:last-child td {
+    border-bottom: none;
+}
+
+.statusPill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    height: 24px;
+    padding: 0 10px;
+    white-space: nowrap;
+}
+
+.statusWarning {
+    background-color: var(--color-warning-faded);
+    color: var(--color-warning-dark);
+}
+
+.statusSuccess {
+    background-color: var(--color-success-faded);
+    color: var(--color-success-dark);
+}
+
+.statusError {
+    background-color: var(--color-error-faded);
+    color: var(--color-error-dark);
+}
+
+.statusDefault {
+    background-color: var(--color-storm-grey-100);
+    color: var(--color-storm-grey-700);
+}

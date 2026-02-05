@@ -1,0 +1,161 @@
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-storm-grey-900);
+}
+
+.subtitle {
+    color: var(--color-storm-grey-500);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.link {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.formStack {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-200);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-storm-grey-900);
+    background-color: var(--color-white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.inputError {
+    border-color: var(--color-error);
+}
+
+.inputIcon {
+    position: absolute;
+    right: 12px;
+    color: var(--color-storm-grey-500);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.helperText {
+    color: var(--color-error);
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.button:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+}
+
+.button:disabled {
+    background-color: var(--color-storm-grey-300);
+    cursor: not-allowed;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    display: flex;
+    gap: 12px;
+}
+
+.alertError {
+    background-color: var(--color-error-faded);
+    color: var(--color-error-dark);
+}
+
+.alertWarning {
+    background-color: var(--color-warning-faded);
+    color: var(--color-warning-dark);
+}
+
+.alertText {
+    margin: 0;
+}
+
+.checkboxGroup {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.checkboxLabel {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-900);
+}

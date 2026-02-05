@@ -2,18 +2,11 @@
 
 import * as React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { Controller, useForm } from 'react-hook-form';
 import { z as zod } from 'zod';
 
 import { authClient } from '@/lib/auth/client';
+import styles from './auth.module.css';
 
 const schema = zod.object({ email: zod.string().min(1, { message: 'Email is required' }).email() });
 
@@ -51,27 +44,36 @@ export function ResetPasswordForm(): React.JSX.Element {
   );
 
   return (
-    <Stack spacing={4}>
-      <Typography variant="h5">Reset password</Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          <Controller
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <FormControl error={Boolean(errors.email)}>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput {...field} label="Email address" type="email" />
-                {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
-              </FormControl>
-            )}
-          />
-          {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
-          <Button disabled={isPending} type="submit" variant="contained">
-            Send recovery link
-          </Button>
-        </Stack>
+    <div className={styles.stack}>
+      <div className={styles.header}>
+        <h4 className={styles.title}>Reset password</h4>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formStack}>
+        <Controller
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <div className={styles.formGroup}>
+              <label htmlFor="email" className={styles.label}>Email address</label>
+              <input
+                {...field}
+                id="email"
+                type="email"
+                className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+              />
+              {errors.email ? <p className={styles.helperText}>{errors.email.message}</p> : null}
+            </div>
+          )}
+        />
+        {errors.root ? (
+          <div className={`${styles.alert} ${styles.alertError}`}>
+            <p className={styles.alertText}>{errors.root.message}</p>
+          </div>
+        ) : null}
+        <button disabled={isPending} type="submit" className={styles.button}>
+          Send recovery link
+        </button>
       </form>
-    </Stack>
+    </div>
   );
 }

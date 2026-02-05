@@ -1,52 +1,122 @@
 'use client';
 
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
-
+import { useRouter } from 'next/navigation';
 import { PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import { DownloadIcon } from '@phosphor-icons/react/dist/ssr/Download';
 import { UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
 import { CompaniesFilters } from '@/components/dashboard/plannings/plannings-filters';
+import { planningsService } from '@/services/plannings.service';
+import { campagnesService } from '@/services/campagnes.service';
+import type { Campagne } from '@/types/api';
+import styles from './plannings.module.css';
 
 /* ---------------- TYPES ---------------- */
 type PlanningDate = {
   date: string;
   hours: string[];
+  spot?: string;
 };
 
 type PlanningFormData = {
+  id_campagne: number;
   spot: string;
   duree: string;
   prixHT: string;
   dates: PlanningDate[];
 };
 
+type CampaignPlanningGroup = {
+  id_campagne: number;
+  campaignName: string;
+  duree: number;
+  date_debut: string;
+  date_fin: string;
+  planningCount: number;
+  status?: 'réservé' | 'programmé';
+};
+
 /* ---------------- PAGE ---------------- */
-export default function Page() {
+export default function Page(): React.JSX.Element {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
+  const [campagnes, setCampagnes] = React.useState<Campagne[]>([]);
+  const [campaignGroups, setCampaignGroups] = React.useState<CampaignPlanningGroup[]>([]);
 
   const [form, setForm] = React.useState<PlanningFormData>({
+    id_campagne: 0,
     spot: '',
     duree: '',
     prixHT: '',
     dates: [{ date: '', hours: [''] }],
   });
 
-  const [plannings, setPlannings] = React.useState<PlanningDate[]>([]);
+  const loadPlannings = async () => {
+    try {
+      const [planningsData, campagnesData] = await Promise.all([
+        planningsService.getAll(),
+        campagnesService.getAll()
+      ]);
+
+      // Group plannings by campaign
+      const grouped = new Map<number, CampaignPlanningGroup>();
+
+      planningsData.data.forEach((planning: any) => {
+        const campagne = campagnesData.find((c: Campagne) => c.id === planning.id_campagne);
+
+        if (campagne && !grouped.has(planning.id_campagne)) {
+          grouped.set(planning.id_campagne, {
+            id_campagne: planning.id_campagne,
+            campaignName: campagne.spot?.toString() || `Campaign ${planning.id_campagne}`,
+            duree: campagne.duree || 0,
+            date_debut: campagne.date_debut,
+            date_fin: campagne.date_fin,
+            planningCount: 0,
+            status: 'réservé' // Default status
+          });
+        }
+
+        if (grouped.has(planning.id_campagne)) {
+          const group = grouped.get(planning.id_campagne)!;
+          group.planningCount++;
+
+          // If any planning is programmé, mark the whole campaign as programmé
+          if (planning.status === 'programmé') {
+            group.status = 'programmé';
+          }
+        }
+      });
+
+      setCampaignGroups(Array.from(grouped.values()));
+      setCampagnes(campagnesData);
+    } catch (err) {
+      console.error('Failed to load plannings', err);
+    }
+  };
+
+  React.useEffect(() => {
+    loadPlannings();
+  }, []);
 
   /* -------- Form handlers -------- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleCampagneChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const campagneId = Number(e.target.value);
+    const selectedCampagne = campagnes.find(c => c.id === campagneId);
+
+    if (selectedCampagne) {
+      setForm({
+        ...form,
+        id_campagne: campagneId,
+        spot: String(selectedCampagne.spot),
+        duree: String(selectedCampagne.duree || ''),
+      });
+    } else {
+      setForm({ ...form, id_campagne: 0, spot: '', duree: '' });
+    }
   };
 
   const addDate = () => {
@@ -89,123 +159,275 @@ export default function Page() {
     setForm({ ...form, dates: updated });
   };
 
-  const handleSave = () => {
-    setPlannings([...plannings, ...form.dates]);
-    setForm({ spot: '', duree: '', prixHT: '', dates: [{ date: '', hours: [''] }] });
-    setOpen(false);
+  const handleSave = async () => {
+    try {
+      // Create backend records for each date/hour
+      for (const d of form.dates) {
+        if (!d.date) continue;
+
+        for (const h of d.hours) {
+          if (!h) continue;
+
+          await planningsService.create({
+            id_campagne: form.id_campagne,
+            spot: form.spot,
+            duree: Number(form.duree),
+            prix_HT: Number(form.prixHT),
+            date: d.date,
+            heure: h
+          });
+        }
+      }
+
+      await loadPlannings();
+      setForm({ id_campagne: 0, spot: '', duree: '', prixHT: '', dates: [{ date: '', hours: [''] }] });
+      setOpen(false);
+    } catch (err) {
+      console.error('Failed to create plannings', err);
+      alert('Failed to save plannings');
+    }
+  };
+
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return '';
+    const [y, m, d] = dateStr.split('-');
+    return `${d}/${m}/${y}`;
+  };
+
+  const handleCampaignClick = (id_campagne: number) => {
+    router.push(`/dashboard/plannings/${id_campagne}`);
   };
 
   /* ---------------- UI ---------------- */
   return (
-    <Stack spacing={3}>
+    <div className={styles.container}>
       {/* Header */}
-      <Stack direction="row" spacing={3}>
-        <Stack spacing={1} sx={{ flex: '1 1 auto' }}>
-          <Typography variant="h4">Plannings</Typography>
-          <Stack direction="row" spacing={1}>
-            <Button color="inherit" startIcon={<UploadIcon />}>
+      <div className={styles.header}>
+        <div className={styles.titleSection}>
+          <h1 className={styles.title}>Plannings</h1>
+          <div className={styles.actions}>
+            <button className={styles.buttonSecondary}>
+              <UploadIcon />
               Import
-            </Button>
-            <Button color="inherit" startIcon={<DownloadIcon />}>
+            </button>
+            <button className={styles.buttonSecondary}>
+              <DownloadIcon />
               Export
-            </Button>
-          </Stack>
-        </Stack>
-        <Button variant="contained" startIcon={<PlusIcon />} onClick={() => setOpen(true)}>
+            </button>
+          </div>
+        </div>
+        <button className={styles.button} onClick={() => setOpen(true)}>
+          <PlusIcon size={20} />
           Add
-        </Button>
-      </Stack>
-
-      {/* Modal */}
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="md">
-        <DialogTitle>Add Plannings</DialogTitle>
-        <DialogContent>
-          <Stack spacing={3} mt={1}>
-            {form.dates.map((d, dateIndex) => (
-              <Box key={dateIndex} sx={{ border: '1px solid #ddd', p: 2, borderRadius: 2 }}>
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <TextField
-                    type="date"
-                    label="Date"
-                    value={d.date}
-                    onChange={(e) => updateDate(dateIndex, e.target.value)}
-                    InputLabelProps={{ shrink: true }}
-                    fullWidth
-                  />
-                  {form.dates.length > 1 && (
-                    <Button color="error" onClick={() => removeDate(dateIndex)}>
-                      ✕
-                    </Button>
-                  )}
-                </Stack>
-                <Stack spacing={2} mt={2}>
-                  {d.hours.map((hour, hourIndex) => (
-                    <Stack key={hourIndex} direction="row" spacing={2} alignItems="center">
-                      <TextField
-                        type="time"
-                        label={`Hour ${hourIndex + 1}`}
-                        value={hour}
-                        onChange={(e) => updateHour(dateIndex, hourIndex, e.target.value)}
-                        InputLabelProps={{ shrink: true }}
-                        fullWidth
-                      />
-                      {d.hours.length > 1 && (
-                        <Button color="error" onClick={() => removeHour(dateIndex, hourIndex)}>
-                          ✕
-                        </Button>
-                      )}
-                    </Stack>
-                  ))}
-                  <Button variant="outlined" onClick={() => addHour(dateIndex)}>
-                    + Add hour
-                  </Button>
-                </Stack>
-              </Box>
-            ))}
-            <Button variant="contained" onClick={addDate}>
-              + Add new date
-            </Button>
-
-            <TextField label="Spot" name="spot" value={form.spot} onChange={handleChange} />
-            <TextField label="Durée (h)" type="number" name="duree" value={form.duree} onChange={handleChange} />
-            <TextField label="Prix HT" type="number" name="prixHT" value={form.prixHT} onChange={handleChange} />
-          </Stack>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button variant="contained" onClick={handleSave}>
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+        </button>
+      </div>
 
       {/* Filters */}
       <CompaniesFilters />
 
-      {/* Single Card for all Dates + Hours */}
-      <Grid container spacing={3}>
-  <Grid size={12}>
-    <Box sx={{ border: '1px solid #ddd', borderRadius: 2, p: 3 }}>
-      {plannings.map((d, index) => (
-        <Box key={index} sx={{ mb: 2 }}>
-          <Typography variant="h6">📅 {d.date}</Typography>
+      {/* Campaign Grid */}
+      <div className={styles.grid}>
+        {campaignGroups.length === 0 && (
+          <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '48px', color: '#666' }}>
+            <p>Aucun planning configuré.</p>
+            <button className={styles.button} onClick={() => setOpen(true)} style={{ marginTop: '16px' }}>
+              <PlusIcon size={20} />
+              Créer un planning
+            </button>
+          </div>
+        )}
 
-          <Stack
-            direction="row"
-            spacing={1}
-            flexWrap="wrap"
-            mt={1}
+        {campaignGroups.map((group) => (
+          <div
+            key={group.id_campagne}
+            className={styles.planningCard}
+            onClick={() => handleCampaignClick(group.id_campagne)}
+            style={{ cursor: 'pointer' }}
           >
-            {d.hours.map((h, i) => (
-              <Chip key={i} label={h} />
-            ))}
-          </Stack>
-        </Box>
-      ))}
-    </Box>
-  </Grid>
-</Grid>
+            <div className={styles.cardHeader}>
+              <h3 className={styles.dateTitle}>
+                <span>📅</span>
+                {group.campaignName}
+              </h3>
+              <span className={`${styles.statusBadge} ${group.status === 'programmé' ? styles.statusProgramme : styles.statusReserve}`}>
+                {group.status === 'programmé' ? 'Programmé' : 'Réservé'}
+              </span>
+            </div>
+            <div className={styles.cardContent}>
+              <div className={styles.infoRow}>
+                <span className={styles.label}>Durée:</span>
+                <span className={styles.value}>{group.duree}s</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.label}>Période:</span>
+                <span className={styles.value}>
+                  {formatDate(group.date_debut)} - {formatDate(group.date_fin)}
+                </span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.label}>Plannings:</span>
+                <span className={styles.value}>{group.planningCount}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-    </Stack>
+      {/* Modal */}
+      {open ? (
+        <div className={styles.modalOverlay} onClick={() => setOpen(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>Add Plannings</h2>
+            </div>
+            <div className={styles.modalBody}>
+              {/* Campaign Selection */}
+              <div className={styles.formControl}>
+                <label className={styles.label}>Campagne *</label>
+                <select
+                  className={styles.input}
+                  value={form.id_campagne}
+                  onChange={handleCampagneChange}
+                >
+                  <option value={0}>Sélectionner une campagne</option>
+                  {campagnes.map(c => (
+                    <option key={c.id} value={c.id}>
+                      {c.spot} ({c.duree}s) - {c.client?.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Read only info */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className={styles.formControl}>
+                  <label className={styles.label}>Spot (Auto)</label>
+                  <input className={styles.input} value={form.spot} disabled readOnly />
+                </div>
+                <div className={styles.formControl}>
+                  <label className={styles.label}>Durée (Auto)</label>
+                  <input className={styles.input} value={form.duree} disabled readOnly />
+                </div>
+              </div>
+
+              <div className={styles.formControl}>
+                <label className={styles.label}>Prix HT</label>
+                <input
+                  className={styles.input}
+                  type="number"
+                  name="prixHT"
+                  value={form.prixHT}
+                  onChange={handleChange}
+                  placeholder="Ex: 500"
+                />
+              </div>
+
+              <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '8px 0' }} />
+
+              {form.dates.map((d, dateIndex) => (
+                <div key={dateIndex} className={styles.dateBlock}>
+                  <div className={styles.dateHeader}>
+                    <div className={styles.formControl}>
+                      <label className={styles.label}>Date</label>
+                      <input
+                        className={styles.input}
+                        type="date"
+                        value={d.date}
+                        onChange={(e) => updateDate(dateIndex, e.target.value)}
+                      />
+                    </div>
+                    {form.dates.length > 1 && (
+                      <button
+                        className={`${styles.buttonSecondary} ${styles.buttonError}`}
+                        onClick={() => removeDate(dateIndex)}
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {d.hours.map((hourStr, hourIndex) => {
+                      const [currH, currM] = hourStr ? hourStr.split(':') : ['00', '00'];
+
+                      const handleTimeChange = (type: 'h' | 'm', val: string) => {
+                        const newH = type === 'h' ? val : currH;
+                        const newM = type === 'm' ? val : currM;
+                        updateHour(dateIndex, hourIndex, `${newH}:${newM}`);
+                      };
+
+                      const currentCampagne = campagnes.find(c => c.id === form.id_campagne);
+                      const isClassique = currentCampagne?.type === 'classique';
+
+                      const allowedMinutes = isClassique
+                        ? ['00', '15', '30', '45']
+                        : Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'));
+
+                      return (
+                        <div key={hourIndex} className={styles.hourRow}>
+                          <div className={styles.formControl} style={{ flexDirection: 'row', gap: '8px', alignItems: 'center' }}>
+                            <label className={styles.label} style={{ whiteSpace: 'nowrap', minWidth: '60px' }}>Hour {hourIndex + 1}</label>
+
+                            <select
+                              className={styles.input}
+                              style={{ width: '70px' }}
+                              value={currH}
+                              onChange={(e) => handleTimeChange('h', e.target.value)}
+                            >
+                              {Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0')).map(h => (
+                                <option key={h} value={h}>{h}</option>
+                              ))}
+                            </select>
+
+                            <span>:</span>
+
+                            <select
+                              className={styles.input}
+                              style={{ width: '70px' }}
+                              value={currM}
+                              onChange={(e) => handleTimeChange('m', e.target.value)}
+                            >
+                              {allowedMinutes.map(m => (
+                                <option key={m} value={m}>{m}</option>
+                              ))}
+                            </select>
+
+                          </div>
+                          {d.hours.length > 1 && (
+                            <button
+                              className={`${styles.buttonSecondary} ${styles.buttonError}`}
+                              onClick={() => removeHour(dateIndex, hourIndex)}
+                              style={{ alignSelf: 'center', marginBottom: '0' }}
+                            >
+                              ✕
+                            </button>
+                          )}
+                        </div>
+                      )
+                    })}
+                    <button
+                      className={styles.buttonSecondary}
+                      onClick={() => addHour(dateIndex)}
+                      style={{ width: 'fit-content' }}
+                    >
+                      + Add hour
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button className={styles.button} onClick={addDate}>
+                  + Add new date
+                </button>
+              </div>
+            </div>
+            <div className={styles.modalFooter}>
+              <button className={styles.buttonSecondary} onClick={() => setOpen(false)}>Cancel</button>
+              <button className={styles.button} onClick={handleSave} disabled={!form.id_campagne}>Save</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
   );
 }

@@ -1,68 +1,57 @@
 'use client';
 
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
-import Checkbox from '@mui/material/Checkbox';
-import Divider from '@mui/material/Divider';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import styles from './settings.module.css';
 
 export function Notifications(): React.JSX.Element {
   return (
     <form
+      className={styles.form}
       onSubmit={(event) => {
         event.preventDefault();
       }}
     >
-      <Card>
-        <CardHeader subheader="Manage the notifications" title="Notifications" />
-        <Divider />
-        <CardContent>
-          <Grid container spacing={6} wrap="wrap">
-            <Grid
-              size={{
-                md: 4,
-                sm: 6,
-                xs: 12,
-              }}
-            >
-              <Stack spacing={1}>
-                <Typography variant="h6">Email</Typography>
-                <FormGroup>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Product updates" />
-                  <FormControlLabel control={<Checkbox />} label="Security updates" />
-                </FormGroup>
-              </Stack>
-            </Grid>
-            <Grid
-              size={{
-                md: 4,
-                sm: 6,
-                xs: 12,
-              }}
-            >
-              <Stack spacing={1}>
-                <Typography variant="h6">Phone</Typography>
-                <FormGroup>
-                  <FormControlLabel control={<Checkbox defaultChecked />} label="Email" />
-                  <FormControlLabel control={<Checkbox />} label="Security updates" />
-                </FormGroup>
-              </Stack>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">Save changes</Button>
-        </CardActions>
-      </Card>
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <h3 className={styles.cardTitle}>Notifications</h3>
+          <p className={styles.cardSubheader}>Manage the notifications</p>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.cardContent}>
+          <div className={styles.grid}>
+            <div className={styles.stack}>
+              <h4 className={styles.sectionTitle}>Email</h4>
+              <div className={styles.checkboxGroup}>
+                <label className={styles.checkboxLabel}>
+                  <input type="checkbox" defaultChecked className={styles.checkbox} />
+                  Product updates
+                </label>
+                <label className={styles.checkboxLabel}>
+                  <input type="checkbox" className={styles.checkbox} />
+                  Security updates
+                </label>
+              </div>
+            </div>
+            <div className={styles.stack}>
+              <h4 className={styles.sectionTitle}>Phone</h4>
+              <div className={styles.checkboxGroup}>
+                <label className={styles.checkboxLabel}>
+                  <input type="checkbox" defaultChecked className={styles.checkbox} />
+                  Email
+                </label>
+                <label className={styles.checkboxLabel}>
+                  <input type="checkbox" className={styles.checkbox} />
+                  Security updates
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.divider} />
+        <div className={styles.cardActions}>
+          <button type="submit" className={styles.button}>Save changes</button>
+        </div>
+      </div>
     </form>
   );
 }

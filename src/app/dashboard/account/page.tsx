@@ -1,41 +1,31 @@
 import * as React from 'react';
 import type { Metadata } from 'next';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 
 import { config } from '@/config';
 import { AccountDetailsForm } from '@/components/dashboard/account/account-details-form';
 import { AccountInfo } from '@/components/dashboard/account/account-info';
+import { UpdatePasswordForm } from '@/components/dashboard/settings/update-password-form';
+import styles from '@/components/dashboard/account/account.module.css';
 
 export const metadata = { title: `Account | Dashboard | ${config.site.name}` } satisfies Metadata;
 
 export default function Page(): React.JSX.Element {
   return (
-    <Stack spacing={3}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
-        <Typography variant="h4">Account</Typography>
+        <h1 style={{ fontSize: '2rem', fontWeight: 600, margin: 0, color: 'var(--color-storm-grey-900)' }}>Account</h1>
       </div>
-      <Grid container spacing={3}>
-        <Grid
-          size={{
-            lg: 4,
-            md: 6,
-            xs: 12,
-          }}
-        >
+      <div className={styles.grid}>
+        <div>
           <AccountInfo />
-        </Grid>
-        <Grid
-          size={{
-            lg: 8,
-            md: 6,
-            xs: 12,
-          }}
-        >
+        </div>
+        <div>
           <AccountDetailsForm />
-        </Grid>
-      </Grid>
-    </Stack>
+          <div style={{ marginTop: '24px' }}>
+            <UpdatePasswordForm />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

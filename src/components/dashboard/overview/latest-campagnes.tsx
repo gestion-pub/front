@@ -1,19 +1,10 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardHeader from '@mui/material/CardHeader';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import type { SxProps } from '@mui/material/styles';
 import { ArrowRightIcon } from '@phosphor-icons/react/dist/ssr/ArrowRight';
 import { DotsThreeVerticalIcon } from '@phosphor-icons/react/dist/ssr/DotsThreeVertical';
 import dayjs from 'dayjs';
+
+import cardStyles from './chart-card.module.css';
+import styles from './latest-campagnes.module.css';
 
 export interface Campagne {
   id: string;
@@ -24,54 +15,43 @@ export interface Campagne {
 
 export interface LatestCampagnesProps {
   campagnes?: Campagne[];
-  sx?: SxProps;
+  sx?: React.CSSProperties; // Changed to CSSProperties
 }
 
 export function LatestCampagnes({ campagnes = [], sx }: LatestCampagnesProps): React.JSX.Element {
   return (
-    <Card sx={sx}>
-      <CardHeader title="Latest campagnes" />
-      <Divider />
-      <List>
+    <div className={cardStyles.card} style={sx}>
+      <div className={cardStyles.header}>
+        <h4 className={cardStyles.title}>Latest campagnes</h4>
+      </div>
+      <hr className={cardStyles.divider} />
+      <ul className={styles.list}>
         {campagnes.map((campagne, index) => (
-          <ListItem divider={index < campagnes.length - 1} key={campagne.id}>
-            <ListItemAvatar>
+          <li key={campagne.id} className={`${styles.listItem} ${index < campagnes.length - 1 ? styles.listItemDivider : ''}`}>
+            <div className={styles.listItemAvatar}>
               {campagne.image ? (
-                <Box component="img" src={campagne.image} sx={{ borderRadius: 1, height: '48px', width: '48px' }} />
+                <img src={campagne.image} className={styles.avatarImg} alt={campagne.name} />
               ) : (
-                <Box
-                  sx={{
-                    borderRadius: 1,
-                    backgroundColor: 'var(--mui-palette-neutral-200)',
-                    height: '48px',
-                    width: '48px',
-                  }}
-                />
+                <div className={styles.avatarPlaceholder} />
               )}
-            </ListItemAvatar>
-            <ListItemText
-              primary={campagne.name}
-              primaryTypographyProps={{ variant: 'subtitle1' }}
-              secondary={`Updated ${dayjs(campagne.updatedAt).format('MMM D, YYYY')}`}
-              secondaryTypographyProps={{ variant: 'body2' }}
-            />
-            <IconButton edge="end">
-              <DotsThreeVerticalIcon weight="bold" />
-            </IconButton>
-          </ListItem>
+            </div>
+            <div className={styles.listItemText}>
+              <p className={styles.primaryText}>{campagne.name}</p>
+              <p className={styles.secondaryText}>Updated {dayjs(campagne.updatedAt).format('MMM D, YYYY')}</p>
+            </div>
+            <button className={styles.iconButton}>
+              <DotsThreeVerticalIcon weight="bold" fontSize="1.5rem" />
+            </button>
+          </li>
         ))}
-      </List>
-      <Divider />
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <Button
-          color="inherit"
-          endIcon={<ArrowRightIcon fontSize="var(--icon-fontSize-md)" />}
-          size="small"
-          variant="text"
-        >
+      </ul>
+      <hr className={cardStyles.divider} />
+      <div className={cardStyles.actions}>
+        <button className={cardStyles.actionButton}>
           View all
-        </Button>
-      </CardActions>
-    </Card>
+          <ArrowRightIcon fontSize="1rem" />
+        </button>
+      </div>
+    </div>
   );
 }

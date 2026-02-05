@@ -74,4 +74,10 @@ export default [
 	},
 	...compat.extends("plugin:react-hooks/recommended"),
 	...compat.config(pluginNext.configs.recommended),
+	{
+		rules: {
+			"@next/next/no-img-element": "off",
+			"unicorn/no-negated-condition": "off",
+		},
+	},
 ];

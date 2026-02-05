@@ -1,0 +1,47 @@
+.grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(12, 1fr);
+    padding-bottom: 24px;
+}
+
+.card {
+    height: 100%;
+}
+
+/* Column spans based on breakpoints matching MUI 'lg', 'md', 'sm', 'xs' logic approximately */
+/* Default xs=12 is implicit if we don't set span, but we want explicit control */
+
+.col_12 {
+    grid-column: span 12;
+}
+
+@media (min-width: 600px) {
+    .col_sm_6 {
+        grid-column: span 6;
+    }
+}
+
+@media (min-width: 900px) {
+    .col_md_6 {
+        grid-column: span 6;
+    }
+
+    .col_md_12 {
+        grid-column: span 12;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col_lg_3 {
+        grid-column: span 3;
+    }
+
+    .col_lg_4 {
+        grid-column: span 4;
+    }
+
+    .col_lg_8 {
+        grid-column: span 8;
+    }
+}
