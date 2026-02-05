@@ -1,0 +1,414 @@
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/dashboard/overview/chart-card.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+.chart-card_card__Me_IA {
+    background-color: var(--color-background-paper);
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 20px;
+    box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-card_header__Mqv8E {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chart-card_title___I_Do {
+    color: var(--color-storm-grey-900);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.chart-card_content__xdyRj {
+    padding: 24px;
+    flex-grow: 1;
+}
+
+.chart-card_divider__2nnkG {
+    border: none;
+    border-top: 1px solid var(--color-storm-grey-200);
+    margin: 0;
+}
+
+.chart-card_actions__xRxR_ {
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.chart-card_actionButton__GXUaj {
+    background-color: transparent;
+    color: var(--color-storm-grey-900);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.75;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.chart-card_actionButton__GXUaj:hover {
+    background-color: var(--color-storm-grey-100);
+}
+
+.chart-card_legend__6q1k7 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.chart-card_legendItem__VY5bZ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.chart-card_legendLabel__2PxSn {
+    color: var(--color-storm-grey-900);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.chart-card_legendValue__Zt2kG {
+    color: var(--color-storm-grey-500);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.chart-card_legendIcon__ynE8M {
+    color: var(--color-storm-grey-500);
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/dashboard/overview/stats-card.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+.stats-card_card__lLFs3 {
+    background-color: var(--color-background-paper);
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 20px;
+    box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-card_content__1U8n8 {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex-grow: 1;
+}
+
+.stats-card_header__3MN1y {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.stats-card_titleWrapper__AxYDm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stats-card_title__2Hkfk {
+    color: var(--color-storm-grey-500);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 2.5;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.stats-card_value__Ll7Vu {
+    color: var(--color-storm-grey-900);
+    font-size: 2.125rem;
+    font-weight: 700;
+    line-height: 1.235;
+    margin: 0;
+}
+
+.stats-card_avatar__gzahz {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-card_avatarSuccess__QXCfn {
+    background-color: var(--color-success);
+}
+
+.stats-card_avatarWarning__kwLzA {
+    background-color: var(--color-warning);
+}
+
+.stats-card_avatarError__FfJ5m {
+    background-color: var(--color-error);
+}
+
+.stats-card_footer__yf4VB {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stats-card_trend__AgFdi {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.stats-card_trendUp__RUVGc {
+    color: var(--color-success);
+}
+
+.stats-card_trendDown__8LRdr {
+    color: var(--color-error);
+}
+
+.stats-card_diff___u_Ie {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.57;
+    margin: 0;
+}
+
+.stats-card_caption__FrNbJ {
+    color: var(--color-storm-grey-500);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.66;
+    letter-spacing: 0.4px;
+    margin: 0;
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/dashboard/overview/latest-orders.module.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+.latest-orders_tableContainer__WC6ou {
+    overflow-x: auto;
+}
+
+.latest-orders_table__ZjMaY {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.latest-orders_tableHead__UgDvg th {
+    background-color: var(--color-background-paper);
+    color: var(--color-storm-grey-500);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.latest-orders_tableBody__HEuOy tr {
+    transition: background-color 0.2s;
+}
+
+.latest-orders_tableBody__HEuOy tr:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.latest-orders_tableBody__HEuOy td {
+    padding: 16px 24px;
+    color: var(--color-storm-grey-900);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.57;
+    border-bottom: 1px solid var(--color-storm-grey-100);
+}
+
+.latest-orders_tableBody__HEuOy tr:last-child td {
+    border-bottom: none;
+}
+
+.latest-orders_statusPill__TMFvG {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    height: 24px;
+    padding: 0 10px;
+    white-space: nowrap;
+}
+
+.latest-orders_statusWarning__Qj0_I {
+    background-color: var(--color-warning-faded);
+    color: var(--color-warning-dark);
+}
+
+.latest-orders_statusSuccess__qUPaD {
+    background-color: var(--color-success-faded);
+    color: var(--color-success-dark);
+}
+
+.latest-orders_statusError__Yfs_W {
+    background-color: var(--color-error-faded);
+    color: var(--color-error-dark);
+}
+
+.latest-orders_statusDefault__3MRFN {
+    background-color: var(--color-storm-grey-100);
+    color: var(--color-storm-grey-700);
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/dashboard/overview/latest-campagnes.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+.latest-campagnes_list___LRGC {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.latest-campagnes_listItem__f8g3g {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+}
+
+.latest-campagnes_listItemDivider__Px6B2:not(:last-child) {
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.latest-campagnes_listItemAvatar__mNKsM {
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.latest-campagnes_avatarImg__3y_EZ {
+    border-radius: 8px;
+    height: 48px;
+    width: 48px;
+    object-fit: cover;
+}
+
+.latest-campagnes_avatarPlaceholder__2rKxc {
+    border-radius: 8px;
+    background-color: var(--color-storm-grey-200);
+    height: 48px;
+    width: 48px;
+}
+
+.latest-campagnes_listItemText__qPIsP {
+    flex-grow: 1;
+    min-width: 0;
+    /* allows text truncation if needed */
+}
+
+.latest-campagnes_primaryText___cwoS {
+    color: var(--color-storm-grey-900);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.latest-campagnes_secondaryText__ngzdZ {
+    color: var(--color-storm-grey-500);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.57;
+    margin: 0;
+}
+
+.latest-campagnes_iconButton__EmAeE {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--color-storm-grey-500);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.latest-campagnes_iconButton__EmAeE:hover {
+    background-color: var(--color-storm-grey-100);
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/app/dashboard/overview.module.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************/
+.overview_grid__9MLOq {
+    display: grid;
+    grid-gap: 24px;
+    gap: 24px;
+    grid-template-columns: repeat(12, 1fr);
+    padding-bottom: 24px;
+}
+
+.overview_card__h7Zlu {
+    height: 100%;
+}
+
+/* Column spans based on breakpoints matching MUI 'lg', 'md', 'sm', 'xs' logic approximately */
+/* Default xs=12 is implicit if we don't set span, but we want explicit control */
+
+.overview_col_12__n9ZG5 {
+    grid-column: span 12;
+}
+
+@media (min-width: 600px) {
+    .overview_col_sm_6__wfyvr {
+        grid-column: span 6;
+    }
+}
+
+@media (min-width: 900px) {
+    .overview_col_md_6__v4Owm {
+        grid-column: span 6;
+    }
+
+    .overview_col_md_12__KOHOR {
+        grid-column: span 12;
+    }
+}
+
+@media (min-width: 1200px) {
+    .overview_col_lg_3__rYGq1 {
+        grid-column: span 3;
+    }
+
+    .overview_col_lg_4__xTl__ {
+        grid-column: span 4;
+    }
+
+    .overview_col_lg_8__187Dh {
+        grid-column: span 8;
+    }
+}

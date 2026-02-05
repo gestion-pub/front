@@ -1,0 +1,10 @@
+{
+  "/dashboard/conducteurs/page": "app/dashboard/conducteurs/page.js",
+  "/dashboard/account/page": "app/dashboard/account/page.js",
+  "/dashboard/conducteurs/[id]/page": "app/dashboard/conducteurs/[id]/page.js",
+  "/dashboard/clients/page": "app/dashboard/clients/page.js",
+  "/dashboard/categories/page": "app/dashboard/categories/page.js",
+  "/dashboard/campagnes/page": "app/dashboard/campagnes/page.js",
+  "/dashboard/settings/page": "app/dashboard/settings/page.js",
+  "/dashboard/users/page": "app/dashboard/users/page.js"
+}

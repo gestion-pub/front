@@ -1,0 +1,300 @@
+/*!********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/app/dashboard/campagnes/campagnes.module.css ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************/
+.campagnes_container__Xk4iQ {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.campagnes_header__BFqxS {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.campagnes_title__6gI9h {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-storm-grey-900);
+}
+
+.campagnes_button__tLhQj {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.campagnes_button__tLhQj:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.campagnes_buttonSecondary__Gy8eM {
+    background-color: white;
+    color: var(--color-storm-grey-900);
+    border: 1px solid var(--color-storm-grey-300);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.campagnes_buttonSecondary__Gy8eM:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.campagnes_searchContainer__2ABV9 {
+    position: relative;
+}
+
+.campagnes_searchWrapper__5JCdf {
+    position: relative;
+    width: 100%;
+}
+
+.campagnes_searchInput__ZA__E {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-300);
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.campagnes_searchIcon__M8Iwf {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-storm-grey-500);
+}
+
+.campagnes_loadingContainer__PpXgQ,
+.campagnes_errorContainer__XsgiE {
+    padding: 48px 24px;
+    text-align: center;
+    background-color: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid var(--color-storm-grey-200);
+}
+
+.campagnes_errorContainer__XsgiE {
+    color: var(--color-error);
+}
+
+.campagnes_errorContainer__XsgiE button {
+    margin-top: 16px;
+}
+
+.campagnes_grid__FMs7e {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 24px;
+    gap: 24px;
+}
+
+.campagnes_card__IlTyl {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid var(--color-storm-grey-200);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.campagnes_card__IlTyl:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    border-color: var(--color-primary);
+}
+
+.campagnes_cardHeader___yZN5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.campagnes_cardTitle__XT_kB {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-storm-grey-900);
+    margin: 0;
+}
+
+.campagnes_cardSubtitle__xS_yO {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+}
+
+.campagnes_cardBody__R_Ywc {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campagnes_cardRow__YZwdn {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+}
+
+.campagnes_cardLabel__Yueag {
+    color: var(--color-storm-grey-500);
+}
+
+.campagnes_cardValue__f7cdd {
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.campagnes_cardFooter__m15GK {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-storm-grey-100);
+    padding-top: 16px;
+    margin-top: 8px;
+}
+
+.campagnes_actions__ldwZD {
+    display: flex;
+    gap: 8px;
+}
+
+.campagnes_iconButton__10NY_ {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    color: var(--color-storm-grey-500);
+    transition: background-color 0.2s;
+}
+
+.campagnes_iconButton__10NY_:hover {
+    background-color: var(--color-storm-grey-100);
+    color: var(--color-storm-grey-900);
+}
+
+.campagnes_iconButtonError__C1n4g {
+    color: var(--color-error);
+}
+
+.campagnes_iconButtonError__C1n4g:hover {
+    background-color: var(--color-error-faded);
+}
+
+.campagnes_badgeActive__i5vgO,
+.campagnes_badgeInactive__R19X1 {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.campagnes_badgeActive__i5vgO {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.campagnes_badgeInactive__R19X1 {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Modal Styles */
+.campagnes_modalOverlay__q7Xvx {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.campagnes_modalContent__A2okP {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.campagnes_modalHeader__5ChVU {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.campagnes_modalTitle___m36X {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.campagnes_modalBody__cDh6h {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.campagnes_modalFooter__4cobm {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-storm-grey-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.campagnes_formGrid__TJbMO {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 16px;
+    gap: 16px;
+}
+
+.campagnes_formControl__fsTkZ {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.campagnes_label__UL1EW {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.campagnes_input__uTSHv,
+.campagnes_select__CmF4w {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-300);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+    background-color: white;
+}

@@ -1,0 +1,248 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/app/dashboard/plannings/[id]/planning-detail.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+.planning-detail_container__LlJts {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    max-width: 100%;
+}
+
+.planning-detail_header__N_y_K {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.planning-detail_backButton__N5GRZ {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-700);
+    transition: all 0.2s;
+}
+
+.planning-detail_backButton__N5GRZ:hover {
+    background: var(--color-storm-grey-50);
+    border-color: var(--color-storm-grey-300);
+}
+
+.planning-detail_titleSection__LKbq2 {
+    flex: 1 1;
+}
+
+.planning-detail_title__5FAfS {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.planning-detail_campaignInfo__FsklG {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.planning-detail_badge__TJJSq {
+    padding: 4px 12px;
+    background: var(--color-storm-grey-100);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-700);
+    font-weight: 500;
+}
+
+.planning-detail_statusButtons__zdu5W {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.planning-detail_statusButton__EMlGe {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid var(--color-storm-grey-300);
+    background: white;
+    color: var(--color-storm-grey-700);
+}
+
+.planning-detail_statusButton__EMlGe:hover {
+    border-color: var(--color-storm-grey-400);
+    background: var(--color-storm-grey-50);
+}
+
+.planning-detail_statusButtonActive__1HYMG {
+    background: #16a34a;
+    color: white;
+    border-color: #16a34a;
+}
+
+.planning-detail_statusButtonActive__1HYMG:hover {
+    background: #15803d;
+    border-color: #15803d;
+}
+
+.planning-detail_statusButtonReserve___63i_.planning-detail_statusButtonActive__1HYMG {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.planning-detail_statusButtonReserve___63i_.planning-detail_statusButtonActive__1HYMG:hover {
+    background: #d97706;
+    border-color: #d97706;
+}
+
+.planning-detail_gridWrapper__DmD5y {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.planning-detail_gridContainer__L7_OC {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.planning-detail_table__BmDvE {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.planning-detail_table__BmDvE thead {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #b00000 100%);
+    color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.planning-detail_table__BmDvE th {
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    white-space: nowrap;
+}
+
+.planning-detail_timeHeader__T9_TQ {
+    min-width: 80px;
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #b00000 100%);
+    z-index: 11;
+}
+
+.planning-detail_dateHeader__PdeNK {
+    min-width: 100px;
+    font-size: 0.75rem;
+}
+
+.planning-detail_summaryHeader__WFCIU {
+    min-width: 80px;
+    font-size: 0.75rem;
+}
+
+.planning-detail_table__BmDvE tbody tr:nth-child(even) {
+    background: var(--color-storm-grey-50);
+}
+
+.planning-detail_table__BmDvE tbody tr:hover {
+    background: rgba(214, 0, 0, 0.05);
+}
+
+.planning-detail_timeCell__KP7Pd {
+    padding: 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid var(--color-storm-grey-200);
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 1;
+}
+
+.planning-detail_table__BmDvE tbody tr:nth-child(even) .planning-detail_timeCell__KP7Pd {
+    background: var(--color-storm-grey-50);
+}
+
+.planning-detail_gridCell__6o2ci {
+    padding: 4px;
+    text-align: center;
+    border: 1px solid var(--color-storm-grey-200);
+    min-height: 40px;
+    position: relative;
+}
+
+.planning-detail_gridCellActive__Pv80s {
+    background: rgba(214, 0, 0, 0.1);
+}
+
+.planning-detail_durationBox__OBCMc {
+    background: var(--color-primary);
+    color: white;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    display: inline-block;
+    min-width: 40px;
+}
+
+.planning-detail_summaryCell__39Od9 {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid var(--color-storm-grey-200);
+    font-weight: 600;
+    color: var(--color-storm-grey-700);
+}
+
+.planning-detail_footer__HzFt6 {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.planning-detail_footerStats__Z5lt3 {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+}
+
+.planning-detail_stat__1PdzB {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.planning-detail_statLabel__xPUfK {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+    font-weight: 500;
+}
+
+.planning-detail_statValue__ZZEtJ {
+    font-size: 1.25rem;
+    color: var(--color-storm-grey-900);
+    font-weight: 700;
+}

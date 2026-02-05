@@ -1,0 +1,313 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/dashboard/account/account.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+.account_grid__e3Q9g {
+    display: grid;
+    grid-gap: 24px;
+    gap: 24px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+    .account_grid__e3Q9g {
+        grid-template-columns: 1fr 2fr;
+    }
+}
+
+.account_detailsGrid____cQM {
+    display: grid;
+    grid-gap: 24px;
+    gap: 24px;
+}
+
+@media (min-width: 600px) {
+    .account_detailsGrid____cQM {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Reusing some card styles from settings or common if possible, but defining here for isolation */
+.account_card__0E7V1 {
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 12px;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+    height: 100%;
+}
+
+.account_cardHeader__tI3Iy {
+    padding: 24px;
+}
+
+.account_cardTitle__gnOtk {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.account_cardSubheader__KYZjg {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+    margin: 0;
+}
+
+.account_divider__i_ckJ {
+    height: 1px;
+    background-color: var(--color-storm-grey-200);
+    margin: 0;
+}
+
+.account_cardContent__8aybJ {
+    padding: 24px;
+}
+
+.account_cardActions__VMhLM {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--color-background-level1);
+}
+
+.account_button__3tXEv {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.account_button__3tXEv:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.account_buttonText__BR97e {
+    background: none;
+    color: var(--color-primary);
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.account_buttonText__BR97e:hover {
+    background-color: rgba(214, 0, 0, 0.04);
+}
+
+.account_infoStack__kQQit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.account_avatar__POU4n {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.account_infoTextStack__MkxsL {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+}
+
+.account_name__WE_8W {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+    color: var(--color-storm-grey-900);
+}
+
+.account_secondaryText__Z5T46 {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+    margin: 0;
+}
+
+.account_formControl__SKq1d {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.account_label__95AHP {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.account_input__amK63,
+.account_select__U84f3 {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-200);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-storm-grey-900);
+    width: 100%;
+    background-color: white;
+}
+
+.account_input__amK63:focus,
+.account_select__U84f3:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(214, 0, 0, 0.2);
+}
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/dashboard/settings/settings.module.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
+.settings_form__sB3aN {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings_card__LJEJS {
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 12px;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+}
+
+.settings_cardHeader__IM8xC {
+    padding: 24px;
+}
+
+.settings_cardTitle__aROvZ {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.settings_cardSubheader__oKX8i {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+    margin: 0;
+}
+
+.settings_divider__fS6ju {
+    height: 1px;
+    background-color: var(--color-storm-grey-200);
+    margin: 0;
+}
+
+.settings_cardContent__ag_al {
+    padding: 24px;
+}
+
+.settings_grid__4IBuj {
+    display: grid;
+    grid-gap: 24px;
+    gap: 24px;
+}
+
+@media (min-width: 600px) {
+    .settings_grid__4IBuj {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.settings_stack__2eWd9 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.settings_sectionTitle__d_uqs {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.settings_checkboxGroup__whYBB {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.settings_checkboxLabel__Bh3Vr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-700);
+    cursor: pointer;
+}
+
+.settings_checkbox__Yqogr {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.settings_cardActions__uSlng {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--color-background-level1);
+}
+
+.settings_button__7VZlR {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.settings_button__7VZlR:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.settings_formControl__hJYS3 {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.settings_label__Mo6xo {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.settings_input__J6KGL {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-200);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--color-storm-grey-900);
+    width: 100%;
+}
+
+.settings_input__J6KGL:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(214, 0, 0, 0.2);
+}
+
+.settings_maxWidthSm__oDfOG {
+    max-width: 600px;
+}
