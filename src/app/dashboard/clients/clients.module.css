@@ -1,0 +1,474 @@
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+/* Card Styles */
+.card {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid var(--color-storm-grey-200);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    border-color: var(--color-primary);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-storm-grey-900);
+    margin: 0;
+}
+
+.cardSubtitle {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+}
+
+.cardBody {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cardRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+}
+
+.cardLabel {
+    color: var(--color-storm-grey-500);
+}
+
+.cardValue {
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-storm-grey-100);
+    padding-top: 16px;
+    margin-top: 8px;
+}
+
+/* Reused Styles */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.iconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    color: var(--color-storm-grey-500);
+    transition: background-color 0.2s;
+}
+
+.iconButton:hover {
+    background-color: var(--color-storm-grey-100);
+    color: var(--color-storm-grey-900);
+}
+
+.iconButtonError {
+    color: var(--color-error);
+}
+
+.iconButtonError:hover {
+    background-color: var(--color-error-faded);
+}
+
+/* Modal and Base Styles (keep existing) */
+.container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-storm-grey-900);
+}
+
+.button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.modalHeader {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.modalTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modalBody {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-storm-grey-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-300);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.buttonSecondary {
+    background-color: white;
+    color: var(--color-storm-grey-900);
+    border: 1px solid var(--color-storm-grey-300);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.buttonSecondary:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.loadingContainer,
+.errorContainer {
+    padding: 48px 24px;
+    text-align: center;
+    background-color: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid var(--color-storm-grey-200);
+}
+
+.errorContainer {
+    color: var(--color-error);
+}
+
+.errorContainer button {
+    margin-top: 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-storm-grey-900);
+}
+
+.button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.clientCard {
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 8px;
+    background-color: var(--color-white);
+}
+
+.clientCardContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.clientInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.clientName {
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.clientDetails {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-700);
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.iconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    color: var(--color-storm-grey-500);
+    transition: background-color 0.2s;
+}
+
+.iconButton:hover {
+    background-color: var(--color-storm-grey-100);
+    color: var(--color-storm-grey-900);
+}
+
+.iconButtonError {
+    color: var(--color-error);
+}
+
+.iconButtonError:hover {
+    background-color: var(--color-error-faded);
+}
+
+/* Reuse Modal styles */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.modalHeader {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.modalTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modalBody {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-storm-grey-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-300);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.buttonSecondary {
+    background-color: white;
+    color: var(--color-storm-grey-900);
+    border: 1px solid var(--color-storm-grey-300);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.buttonSecondary:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.loadingContainer,
+.errorContainer {
+    padding: 48px 24px;
+    text-align: center;
+    background-color: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid var(--color-storm-grey-200);
+}
+
+.errorContainer {
+    color: var(--color-error);
+}
+
+.errorContainer button {
+    margin-top: 16px;
+}
+
+.listContainer {
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 12px;
+    background-color: var(--color-white);
+    overflow: hidden;
+}
+
+.item {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.itemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.itemName {
+    font-weight: 600;
+    color: var(--color-storm-grey-900);
+    margin: 0;
+}
+
+.itemDetails {
+    font-size: 0.75rem;
+    color: var(--color-storm-grey-500);
+    margin: 0;
+}

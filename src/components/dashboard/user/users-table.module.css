@@ -1,0 +1,128 @@
+.card {
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 12px;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+}
+
+.tableContainer {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 800px;
+}
+
+.table th {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+    background-color: var(--color-background-level1);
+    font-weight: 600;
+    color: var(--color-storm-grey-900);
+    font-size: 0.875rem;
+}
+
+.table td {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+    color: var(--color-storm-grey-700);
+    font-size: 0.875rem;
+}
+
+.tableRow:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.tableRow.selected {
+    background-color: var(--color-primary-faded);
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--color-storm-grey-200);
+}
+
+.avatarPlaceholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-storm-grey-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.userName {
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+    font-size: 0.875rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.buttonSmall {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid var(--color-storm-grey-300);
+    color: var(--color-storm-grey-900);
+    transition: all 0.2s;
+}
+
+.buttonSmall:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.buttonError {
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+.buttonError:hover {
+    background-color: var(--color-error-faded);
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 16px 24px;
+    gap: 12px;
+    border-top: 1px solid var(--color-storm-grey-200);
+}
+
+.paginationButton {
+    background: none;
+    border: 1px solid var(--color-storm-grey-300);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.paginationButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

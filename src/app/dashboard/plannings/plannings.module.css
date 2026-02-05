@@ -1,0 +1,270 @@
+.container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.titleSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-storm-grey-900);
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.buttonSecondary {
+    background-color: white;
+    color: var(--color-storm-grey-900);
+    border: 1px solid var(--color-storm-grey-300);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+}
+
+.buttonSecondary:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+/* Card Styles */
+.planningCard {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    border: 1px solid var(--color-storm-grey-200);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+
+.planningCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    border-color: var(--color-primary);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-storm-grey-100);
+    padding-bottom: 12px;
+}
+
+.dateTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-storm-grey-900);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hoursContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+}
+
+.chip {
+    background-color: var(--color-primary-faded);
+    color: var(--color-primary);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* Modal Styles */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.moda.planningCard {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+}
+
+.planningCard:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.infoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.infoRow .label {
+    color: var(--color-storm-grey-500);
+    font-weight: 500;
+}
+
+.infoRow .value {
+    color: var(--color-storm-grey-900);
+    font-weight: 600;
+}
+
+.modalContent {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+.modalHeader {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.modalTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modalBody {
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-storm-grey-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.dateBlock {
+    border: 1px solid var(--color-storm-grey-200);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.dateHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-300);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.hourRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.buttonError {
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    padding: 6px 12px;
+    background: white;
+}
+
+.buttonError:hover {
+    background-color: var(--color-error-faded);
+}

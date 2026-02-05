@@ -1,0 +1,97 @@
+.card {
+    background-color: var(--color-background-paper);
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 20px;
+    box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title {
+    color: var(--color-storm-grey-900);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.content {
+    padding: 24px;
+    flex-grow: 1;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--color-storm-grey-200);
+    margin: 0;
+}
+
+.actions {
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.actionButton {
+    background-color: transparent;
+    color: var(--color-storm-grey-900);
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.75;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.actionButton:hover {
+    background-color: var(--color-storm-grey-100);
+}
+
+.legend {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.legendItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.legendLabel {
+    color: var(--color-storm-grey-900);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.legendValue {
+    color: var(--color-storm-grey-500);
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.legendIcon {
+    color: var(--color-storm-grey-500);
+}
