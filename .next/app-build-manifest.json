@@ -1,92 +1,98 @@
 {
   "pages": {
-    "/layout": [
+    "/[locale]/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
+      "static/css/app/[locale]/layout.css",
+      "static/chunks/app/[locale]/layout.js"
     ],
-    "/not-found": [
+    "/[locale]/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/not-found.js"
+      "static/chunks/app/[locale]/not-found.js"
     ],
-    "/page": [
+    "/[locale]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/[locale]/page.js"
     ],
-    "/dashboard/layout": [
+    "/[locale]/dashboard/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/layout.css",
-      "static/chunks/app/dashboard/layout.js"
+      "static/css/app/[locale]/dashboard/layout.css",
+      "static/chunks/app/[locale]/dashboard/layout.js"
     ],
-    "/dashboard/page": [
+    "/[locale]/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/page.css",
-      "static/chunks/app/dashboard/page.js"
+      "static/css/app/[locale]/dashboard/page.css",
+      "static/chunks/app/[locale]/dashboard/page.js"
     ],
-    "/dashboard/users/page": [
+    "/[locale]/dashboard/users/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/users/page.css",
-      "static/chunks/app/dashboard/users/page.js"
+      "static/css/app/[locale]/dashboard/users/page.css",
+      "static/chunks/app/[locale]/dashboard/users/page.js"
     ],
-    "/dashboard/categories/page": [
+    "/[locale]/dashboard/categories/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/categories/page.css",
-      "static/chunks/app/dashboard/categories/page.js"
+      "static/css/app/[locale]/dashboard/categories/page.css",
+      "static/chunks/app/[locale]/dashboard/categories/page.js"
     ],
-    "/dashboard/clients/page": [
+    "/[locale]/dashboard/roles/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/clients/page.css",
-      "static/chunks/app/dashboard/clients/page.js"
+      "static/css/app/[locale]/dashboard/roles/page.css",
+      "static/chunks/app/[locale]/dashboard/roles/page.js"
     ],
-    "/dashboard/campagnes/page": [
+    "/[locale]/dashboard/clients/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/campagnes/page.css",
-      "static/chunks/app/dashboard/campagnes/page.js"
+      "static/css/app/[locale]/dashboard/clients/page.css",
+      "static/chunks/app/[locale]/dashboard/clients/page.js"
     ],
-    "/dashboard/plannings/page": [
+    "/[locale]/dashboard/campagnes/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/plannings/page.css",
-      "static/chunks/app/dashboard/plannings/page.js"
+      "static/css/app/[locale]/dashboard/campagnes/page.css",
+      "static/chunks/app/[locale]/dashboard/campagnes/page.js"
     ],
-    "/dashboard/conducteurs/page": [
+    "/[locale]/dashboard/plannings/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/conducteurs/page.css",
-      "static/chunks/app/dashboard/conducteurs/page.js"
+      "static/css/app/[locale]/dashboard/plannings/page.css",
+      "static/chunks/app/[locale]/dashboard/plannings/page.js"
     ],
-    "/dashboard/plannings/[id]/page": [
+    "/[locale]/dashboard/conducteurs/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/plannings/[id]/page.css",
-      "static/chunks/app/dashboard/plannings/[id]/page.js"
+      "static/css/app/[locale]/dashboard/conducteurs/page.css",
+      "static/chunks/app/[locale]/dashboard/conducteurs/page.js"
     ],
-    "/dashboard/conducteurs/[id]/page": [
+    "/[locale]/dashboard/conducteurs/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/conducteurs/[id]/page.css",
-      "static/chunks/app/dashboard/conducteurs/[id]/page.js"
+      "static/css/app/[locale]/dashboard/conducteurs/[id]/page.css",
+      "static/chunks/app/[locale]/dashboard/conducteurs/[id]/page.js"
     ],
-    "/dashboard/account/page": [
+    "/[locale]/dashboard/plannings/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/account/page.css",
-      "static/chunks/app/dashboard/account/page.js"
+      "static/css/app/[locale]/dashboard/plannings/[id]/page.css",
+      "static/chunks/app/[locale]/dashboard/plannings/[id]/page.js"
     ],
-    "/dashboard/settings/page": [
+    "/[locale]/dashboard/account/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/dashboard/settings/page.css",
-      "static/chunks/app/dashboard/settings/page.js"
+      "static/css/app/[locale]/dashboard/account/page.css",
+      "static/chunks/app/[locale]/dashboard/account/page.js"
+    ],
+    "/[locale]/auth/sign-in/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/[locale]/auth/sign-in/page.css",
+      "static/chunks/app/[locale]/auth/sign-in/page.js"
     ]
   }
 }

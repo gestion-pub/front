@@ -13,6 +13,8 @@ import { usePopover } from '@/hooks/use-popover';
 import { MobileNav } from './mobile-nav';
 import { UserPopover } from './user-popover';
 
+import { LanguageSwitch } from '@/components/core/language-switch';
+
 export function MainNav(): React.JSX.Element {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
   const userPopover = usePopover<HTMLDivElement>();
@@ -22,7 +24,8 @@ export function MainNav(): React.JSX.Element {
       <header className={styles.root}>
         <div className={styles.container}>
           <div className={styles.section}></div>
-          <div className={styles.section}>
+          <div className={styles.section} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <LanguageSwitch />
             {/* Using img for avatar for now, replacing MUI Avatar */}
             <img
               onClick={userPopover.handleOpen}

@@ -1,8 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import RouterLink from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link } from '@/i18n/routing';
+import { usePathname } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 
 import type { NavItemConfig } from '@/types/nav';
 import { paths } from '@/paths';
@@ -13,32 +14,40 @@ import { navItems } from './config';
 import { navIcons } from './nav-icons';
 
 import styles from './side-nav.module.css';
+import { useUser } from '@/hooks/use-user';
 
 export function SideNav(): React.JSX.Element {
   const pathname = usePathname();
+  const { user } = useUser();
+  const t = useTranslations('Navigation');
 
   return (
     <aside className={styles.root}>
       <div className={styles.header}>
         <div className={styles.logoWrapper}>
-          <RouterLink href={paths.home}>
+          <Link href={paths.home}>
             <Logo color="light" height={32} width={122} />
-          </RouterLink>
+          </Link>
         </div>
       </div>
       <hr className={styles.divider} />
       <nav className={styles.navContainer}>
-        {renderNavItems({ pathname, items: navItems })}
+        {renderNavItems({ pathname, items: navItems, userPermissions: user?.permissions ?? [], t })}
       </nav>
     </aside >
   );
 }
 
-function renderNavItems({ items = [], pathname }: { items?: NavItemConfig[]; pathname: string }): React.JSX.Element {
-  const children = items.reduce((acc: React.ReactNode[], curr: NavItemConfig): React.ReactNode[] => {
-    const { key, ...item } = curr;
+function renderNavItems({ items = [], pathname, userPermissions, t }: { items?: NavItemConfig[]; pathname: string, userPermissions: string[], t: any }): React.JSX.Element {
+  const filteredItems = items.filter((item) => {
+    if (!item.permission) return true;
+    return userPermissions.includes(item.permission);
+  });
 
-    acc.push(<NavItem key={key} pathname={pathname} {...item} />);
+  const children = filteredItems.reduce((acc: React.ReactNode[], curr: NavItemConfig): React.ReactNode[] => {
+    const { key, title, ...item } = curr;
+
+    acc.push(<NavItem key={key} pathname={pathname} title={t(key)} {...item} />);
 
     return acc;
   }, []);
@@ -63,7 +72,7 @@ function NavItem({ disabled, external, href, icon, matcher, pathname, title }: N
   return (
     <li className={styles.navItem}>
       {href ? (
-        <RouterLink
+        <Link
           href={href}
           target={external ? '_blank' : undefined}
           rel={external ? 'noreferrer' : undefined}
@@ -81,7 +90,7 @@ function NavItem({ disabled, external, href, icon, matcher, pathname, title }: N
           <span className={styles.navLabel}>
             {title}
           </span>
-        </RouterLink>
+        </Link>
       ) : (
         <div role="button" className={className}>
           <div className={styles.navIcon}>

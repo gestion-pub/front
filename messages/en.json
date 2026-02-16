@@ -1,0 +1,29 @@
+{
+    "AccountDetailsForm": {
+        "title": "Profile",
+        "subheader": "The information can be edited",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email address",
+        "phone": "Phone number",
+        "role": "Role",
+        "loadingRoles": "Loading roles...",
+        "selectRole": "Select a role",
+        "save": "Save details",
+        "loading": "Loading..."
+    },
+    "Navigation": {
+        "overview": "Overview",
+        "dashboard": "Dashboard",
+        "account": "Account",
+        "settings": "Settings",
+        "users": "Users",
+        "categories": "Categories",
+        "roles": "Roles",
+        "clients": "Clients",
+        "campagnes": "Campagnes",
+        "conducteurs": "Conducteurs",
+        "plannings": "Plannings",
+        "logout": "Logout"
+    }
+}

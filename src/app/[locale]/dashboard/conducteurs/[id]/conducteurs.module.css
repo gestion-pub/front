@@ -1,0 +1,366 @@
+.container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-white);
+    padding: 16px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--color-storm-grey-200);
+}
+
+.dateSection {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-primary);
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-storm-grey-900);
+    text-transform: capitalize;
+}
+
+.datePicker {
+    padding: 8px 12px;
+    border: 1px solid var(--color-storm-grey-300);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.datePicker:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Table Styles */
+.tableContainer {
+    background-color: var(--color-white);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--color-storm-grey-200);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.table thead {
+    background: linear-gradient(135deg, #2d5f3f 0%, #3a7a50 100%);
+    color: white;
+}
+
+.table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.table th:last-child {
+    border-right: none;
+}
+
+.thTime {
+    width: 80px;
+}
+
+.thAnnonceur {
+    width: 180px;
+}
+
+.thSpot {
+    width: auto;
+    min-width: 250px;
+}
+
+.thDuree {
+    width: 80px;
+    text-align: center !important;
+}
+
+.thNumero {
+    width: 100px;
+    text-align: center !important;
+}
+
+.thActions {
+    width: 80px;
+    text-align: center !important;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--color-storm-grey-200);
+    transition: background-color 0.15s;
+}
+
+.table tbody tr:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.table tbody tr:nth-child(even):hover {
+    background-color: var(--color-storm-grey-100);
+}
+
+.rowFilled {
+    background-color: #f0f9f4 !important;
+}
+
+.rowFilled:hover {
+    background-color: #e6f5ed !important;
+}
+
+.rowEmpty {
+    color: var(--color-storm-grey-400);
+}
+
+.table td {
+    padding: 10px 16px;
+    border-right: 1px solid var(--color-storm-grey-100);
+}
+
+.table td:last-child {
+    border-right: none;
+}
+
+.tdTime {
+    font-weight: 600;
+    color: var(--color-storm-grey-700);
+    font-family: 'Courier New', monospace;
+}
+
+.tdAnnonceur {
+    color: var(--color-storm-grey-900);
+}
+
+.tdSpot {
+    color: var(--color-storm-grey-900);
+    font-weight: 500;
+}
+
+.tdDuree {
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.tdNumero {
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    color: var(--color-storm-grey-700);
+}
+
+.tdActions {
+    text-align: center;
+}
+
+/* Action Buttons */
+.addButton,
+.deleteButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.addButton {
+    color: var(--color-primary);
+}
+
+.addButton:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.deleteButton {
+    color: var(--color-error);
+}
+
+.deleteButton:hover {
+    background-color: var(--color-error);
+    color: white;
+}
+
+/* Modal Styles */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.modalHeader {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+    background: linear-gradient(135deg, #2d5f3f 0%, #3a7a50 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.modalTitle {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.modalBody {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-storm-grey-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-300);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.button {
+    background-color: #2d5f3f;
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.button:hover {
+    background-color: #3a7a50;
+}
+
+.buttonSecondary {
+    background-color: white;
+    color: var(--color-storm-grey-900);
+    border: 1px solid var(--color-storm-grey-300);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.buttonSecondary:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.saveButton {
+    background-color: white;
+    color: #107569;
+    border: 1px solid #107569;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saveButton:hover {
+    background-color: #f0fdfa;
+}
+
+.rowDraggable {
+    cursor: grab;
+    user-select: none;
+}
+
+.rowDraggable:active {
+    cursor: grabbing;
+}
+
+.dragHandle {
+    color: var(--color-storm-grey-400);
+    margin-right: 8px;
+    cursor: grab;
+    display: inline-flex;
+    align-items: center;
+}
+
+.dragOver {
+    background-color: #f0fdfa !important;
+    outline: 2px dashed #107569;
+    outline-offset: -2px;
+}
+
+.dragging {
+    opacity: 0.5;
+    background-color: var(--color-storm-grey-100);
+}

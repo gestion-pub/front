@@ -1,27 +1,7 @@
 'use client';
 
+import apiClient from '@/lib/api-client';
 import type { User } from '@/types/user';
-
-function generateToken(): string {
-  const arr = new Uint8Array(12);
-  globalThis.crypto.getRandomValues(arr);
-  return Array.from(arr, (v) => v.toString(16).padStart(2, '0')).join('');
-}
-
-const user = {
-  id: 'USR-000',
-  avatar: '/assets/avatar.png',
-  firstName: 'Admin',
-  lastName: 'User',
-  email: 'admin@gestionpub.com',
-} satisfies User;
-
-export interface SignUpParams {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
 
 export interface SignInWithOAuthParams {
   provider: 'google' | 'discord';
@@ -37,16 +17,6 @@ export interface ResetPasswordParams {
 }
 
 class AuthClient {
-  async signUp(_: SignUpParams): Promise<{ error?: string }> {
-    // Make API request
-
-    // We do not handle the API, so we'll just generate a token and store it in localStorage.
-    const token = generateToken();
-    localStorage.setItem('custom-auth-token', token);
-
-    return {};
-  }
-
   async signInWithOAuth(_: SignInWithOAuthParams): Promise<{ error?: string }> {
     return { error: 'Social authentication not implemented' };
   }
@@ -54,18 +24,23 @@ class AuthClient {
   async signInWithPassword(params: SignInWithPasswordParams): Promise<{ error?: string }> {
     const { email, password } = params;
 
-    // Make API request
+    try {
+      const response = await apiClient.post('/login', { email, password });
 
-    // We do not handle the API, so we'll check if the credentials match with the hardcoded ones.
-    // For development, allow any login or specific admin
-    // if (email !== 'admin@gestionpub.com' || password !== 'admin') {
-    //   return { error: 'Invalid credentials' };
-    // }
+      // Laravel returns the plain text token directly
+      const token = typeof response.data === 'string' ? response.data : response.data.token;
 
-    const token = generateToken();
-    localStorage.setItem('custom-auth-token', token);
+      if (token) {
+        localStorage.setItem('auth_token', token);
+        return {};
+      }
 
-    return {};
+      return { error: 'Failed to retrieve auth token' };
+    } catch (err: any) {
+      console.error('Login error:', err);
+      const message = err.response?.data?.message || 'Invalid credentials';
+      return { error: message };
+    }
   }
 
   async resetPassword(_: ResetPasswordParams): Promise<{ error?: string }> {
@@ -77,23 +52,36 @@ class AuthClient {
   }
 
   async getUser(): Promise<{ data?: User | null; error?: string }> {
-    // Make API request
-
-    // We do not handle the API, so just check if we have a token in localStorage.
-    const token = localStorage.getItem('custom-auth-token');
+    const token = localStorage.getItem('auth_token');
 
     if (!token) {
       return { data: null };
     }
 
-    return { data: user };
+    try {
+      const response = await apiClient.get('/user');
+      return { data: response.data };
+    } catch (err: any) {
+      console.error('Get user error:', err);
+      if (err.response?.status === 401) {
+        localStorage.removeItem('auth_token');
+      }
+      return { data: null, error: 'Session expired' };
+    }
   }
 
   async signOut(): Promise<{ error?: string }> {
-    localStorage.removeItem('custom-auth-token');
+    try {
+      await apiClient.post('/logout');
+    } catch (err) {
+      console.error('Sign out error:', err);
+    } finally {
+      localStorage.removeItem('auth_token');
+    }
 
     return {};
   }
 }
 
 export const authClient = new AuthClient();
+

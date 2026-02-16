@@ -50,8 +50,27 @@ export interface User {
     name: string;
     email: string;
     role?: string;
+    phone?: string;
+    permissions?: string[];
     created_at?: string;
     updated_at?: string;
+}
+
+export interface Permission {
+    id: number;
+    name: string;
+    slug: string;
+    created_at?: string;
+    updated_at?: string;
+}
+
+export interface Role {
+    id: number;
+    name: string;
+    slug: string;
+    created_at?: string;
+    updated_at?: string;
+    permissions?: Permission[];
 }
 
 // API Request Types
@@ -94,6 +113,13 @@ export interface CreateConducteurRequest {
 }
 
 export interface UpdateConducteurRequest extends Partial<CreateConducteurRequest> { }
+
+export interface CreateRoleRequest {
+    name: string;
+    permissions: number[]; // Array of permission IDs
+}
+
+export interface UpdateRoleRequest extends Partial<CreateRoleRequest> { }
 
 // Query Parameters
 export interface CampagneQueryParams {

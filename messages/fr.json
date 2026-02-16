@@ -1,0 +1,29 @@
+{
+    "AccountDetailsForm": {
+        "title": "Profil",
+        "subheader": "Les informations peuvent être modifiées",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Adresse e-mail",
+        "phone": "Numéro de téléphone",
+        "role": "Rôle",
+        "loadingRoles": "Chargement des rôles...",
+        "selectRole": "Sélectionnez un rôle",
+        "save": "Enregistrer les détails",
+        "loading": "Chargement..."
+    },
+    "Navigation": {
+        "overview": "Aperçu",
+        "dashboard": "Tableau de bord",
+        "account": "Compte",
+        "settings": "Paramètres",
+        "users": "Utilisateurs",
+        "categories": "Catégories",
+        "roles": "Rôles",
+        "clients": "Clients",
+        "campagnes": "Campagnes",
+        "conducteurs": "Conducteurs",
+        "plannings": "Plannings",
+        "logout": "Déconnexion"
+    }
+}

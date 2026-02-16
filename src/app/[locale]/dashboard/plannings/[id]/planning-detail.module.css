@@ -1,0 +1,386 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    max-width: 100%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid var(--color-storm-grey-200);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-700);
+    transition: all 0.2s;
+}
+
+.backButton:hover {
+    background: var(--color-storm-grey-50);
+    border-color: var(--color-storm-grey-300);
+}
+
+.titleSection {
+    flex: 1;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: var(--color-storm-grey-900);
+}
+
+.campaignInfo {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.badge {
+    padding: 4px 12px;
+    background: var(--color-storm-grey-100);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-700);
+    font-weight: 500;
+}
+
+.statusButtons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.statusButton {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid var(--color-storm-grey-300);
+    background: white;
+    color: var(--color-storm-grey-700);
+}
+
+.statusButton:hover {
+    border-color: var(--color-storm-grey-400);
+    background: var(--color-storm-grey-50);
+}
+
+.statusButtonActive {
+    background: #16a34a;
+    color: white;
+    border-color: #16a34a;
+}
+
+.statusButtonActive:hover {
+    background: #15803d;
+    border-color: #15803d;
+}
+
+.statusButtonReserve.statusButtonActive {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.statusButtonReserve.statusButtonActive:hover {
+    background: #d97706;
+    border-color: #d97706;
+}
+
+.gridWrapper {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.gridContainer {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.table thead {
+    /* Removed background from here to prevent bleed */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table th {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #b00000 100%);
+    color: white;
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    white-space: nowrap;
+}
+
+.timeHeader {
+    min-width: 80px;
+    position: sticky;
+    left: 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #b00000 100%);
+    z-index: 11;
+}
+
+.dateHeader {
+    min-width: 100px;
+    font-size: 0.75rem;
+}
+
+.summaryHeader {
+    min-width: 80px;
+    font-size: 0.75rem;
+}
+
+.table tbody tr:nth-child(even) {
+    background: var(--color-storm-grey-50);
+}
+
+.table tbody tr:hover {
+    background: rgba(214, 0, 0, 0.05);
+}
+
+.timeCell {
+    padding: 8px;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid var(--color-storm-grey-200);
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 1;
+}
+
+.table tbody tr:nth-child(even) .timeCell {
+    background: var(--color-storm-grey-50);
+}
+
+.gridCell {
+    padding: 4px;
+    text-align: center;
+    border: 1px solid var(--color-storm-grey-200);
+    min-height: 40px;
+    position: relative;
+}
+
+.gridCellActive {
+    background: rgba(214, 0, 0, 0.1);
+}
+
+.durationBox {
+    background: var(--color-primary);
+    color: white;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    display: inline-block;
+    min-width: 40px;
+}
+
+.summaryCell {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid var(--color-storm-grey-200);
+    font-weight: 600;
+    color: var(--color-storm-grey-700);
+}
+
+.footer {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footerStats {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.statLabel {
+    font-size: 0.875rem;
+    color: var(--color-storm-grey-500);
+    font-weight: 500;
+}
+
+.statValue {
+    font-size: 1.25rem;
+    color: var(--color-storm-grey-900);
+    font-weight: 700;
+}
+
+/* Modal Styles */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+.modalHeader {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--color-storm-grey-200);
+}
+
+.modalTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modalBody {
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.modalFooter {
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-storm-grey-200);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.dateBlock {
+    border: 1px solid var(--color-storm-grey-200);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+/* Renamed from dateHeader to formDateHeader to avoid conflict with table th */
+.formDateHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.formControl {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-storm-grey-900);
+}
+
+.input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--color-storm-grey-300);
+    font-family: inherit;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.hourRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.button {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.buttonSecondary {
+    background-color: white;
+    color: var(--color-storm-grey-900);
+    border: 1px solid var(--color-storm-grey-300);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+}
+
+.buttonSecondary:hover {
+    background-color: var(--color-storm-grey-50);
+}
+
+.buttonError {
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    padding: 6px 12px;
+    background: white;
+}
+
+.buttonError:hover {
+    background-color: var(--color-error-faded);
+}

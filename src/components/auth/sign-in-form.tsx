@@ -65,12 +65,6 @@ export function SignInForm(): React.JSX.Element {
     <div className={styles.stack}>
       <div className={styles.header}>
         <h4 className={styles.title}>Sign in</h4>
-        <p className={styles.subtitle}>
-          Don&apos;t have an account?{' '}
-          <RouterLink href={paths.auth.signUp} className={styles.link}>
-            Sign up
-          </RouterLink>
-        </p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formStack}>
         <Controller

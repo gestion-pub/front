@@ -1,29 +1,45 @@
+'use client';
+
 import * as React from 'react';
 import styles from './account.module.css';
-
-const user = {
-  name: 'User Name',
-  avatar: '/assets/avatar.png',
-  jobTitle: 'Job Title',
-  role: 'Admin',
-  timezone: 'GMT',
-} as const;
+import { usersService } from '@/services/users.service';
+import type { User } from '@/types/api';
 
 export function AccountInfo(): React.JSX.Element {
+  const [user, setUser] = React.useState<User | null>(null);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await usersService.getCurrentUser();
+        setUser(data);
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if (loading) {
+    return <div className={styles.cardHeader}><p>Loading...</p></div>;
+  }
   return (
     <div className={styles.card}>
       <div className={styles.cardContent}>
         <div className={styles.infoStack}>
           <div>
-            <img src={user.avatar} alt="User Avatar" className={styles.avatar} />
+            <img src={'/assets/avatar.png'} alt="User Avatar" className={styles.avatar} />
           </div>
           <div className={styles.infoTextStack}>
-            <h5 className={styles.name}>{user.name}</h5>
+            <h5 className={styles.name}>{user?.name}</h5>
             <p className={styles.secondaryText}>
-              {user.role}
+              {user?.role}
             </p>
             <p className={styles.secondaryText}>
-              {user.timezone}
+              GMT
             </p>
           </div>
         </div>

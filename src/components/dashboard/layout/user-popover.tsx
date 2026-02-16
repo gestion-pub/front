@@ -1,6 +1,8 @@
+'use client';
+
 import * as React from 'react';
-import RouterLink from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link, useRouter } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { GearSixIcon } from '@phosphor-icons/react/dist/ssr/GearSix';
 import { SignOutIcon } from '@phosphor-icons/react/dist/ssr/SignOut';
 import { UserIcon } from '@phosphor-icons/react/dist/ssr/User';
@@ -19,7 +21,8 @@ export interface UserPopoverProps {
 }
 
 export function UserPopover({ anchorEl: _anchorEl, onClose, open }: UserPopoverProps): React.JSX.Element {
-  const { checkSession } = useUser();
+  const { checkSession, user } = useUser();
+  const t = useTranslations('Navigation');
 
   const router = useRouter();
 
@@ -50,35 +53,35 @@ export function UserPopover({ anchorEl: _anchorEl, onClose, open }: UserPopoverP
   return (
     <div className={styles.popover}>
       <div className={styles.header}>
-        <p className={styles.name}>User Name</p>
+        <p className={styles.name}>{user?.name ?? 'User Name'}</p>
         <p className={styles.email}>
-          user@example.com
+          {user?.email ?? 'user@example.com'}
         </p>
       </div>
       <hr className={styles.divider} />
       <ul className={styles.list}>
         <li className={styles.item}>
-          <RouterLink href={paths.dashboard.settings} className={styles.link} onClick={onClose}>
+          <Link href={paths.dashboard.settings} className={styles.link} onClick={onClose}>
             <span className={styles.icon}>
               <GearSixIcon fontSize="1.25rem" />
             </span>
-            Settings
-          </RouterLink>
+            {t('settings')}
+          </Link>
         </li>
         <li className={styles.item}>
-          <RouterLink href={paths.dashboard.account} className={styles.link} onClick={onClose}>
+          <Link href={paths.dashboard.account} className={styles.link} onClick={onClose}>
             <span className={styles.icon}>
               <UserIcon fontSize="1.25rem" />
             </span>
-            Profile
-          </RouterLink>
+            {t('account')}
+          </Link>
         </li>
         <li className={styles.item}>
           <button className={styles.link} onClick={handleSignOut}>
             <span className={styles.icon}>
               <SignOutIcon fontSize="1.25rem" />
             </span>
-            Sign out
+            {t('logout')}
           </button>
         </li>
       </ul>

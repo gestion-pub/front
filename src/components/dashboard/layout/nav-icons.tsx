@@ -10,6 +10,7 @@ import { AddressBookIcon } from '@phosphor-icons/react/dist/ssr/AddressBook';
 import { CalendarIcon } from '@phosphor-icons/react/dist/ssr/Calendar';
 import { SquaresFourIcon } from '@phosphor-icons/react/dist/ssr/SquaresFour';
 import { MegaphoneIcon } from '@phosphor-icons/react/dist/ssr/Megaphone';
+import { ShieldIcon } from '@phosphor-icons/react/dist/ssr/Shield';
 
 
 
@@ -28,5 +29,6 @@ export const navIcons = {
   clients: AddressBookIcon,
   conducteurs: CalendarIcon,
   categories: SquaresFourIcon,
-  campagnes: MegaphoneIcon, // 👈 هنا
+  campagnes: MegaphoneIcon, 
+  roles: ShieldIcon,
 } as Record<string, Icon>;

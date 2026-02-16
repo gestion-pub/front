@@ -22,25 +22,6 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
           <div className={styles.contentContainer}>{children}</div>
         </div>
       </div>
-      <div className={styles.heroSide}>
-        <div className={styles.heroContent}>
-          <div>
-            <h1 className={styles.heroTitle}>
-              Bienvenue sur <span className={styles.highlight}>Gestion Pub</span>
-            </h1>
-            <p className={styles.heroSubtitle}>
-              Votre plateforme de gestion publicitaire.
-            </p>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {/* <img
-              alt="Widgets"
-              src="/assets/auth-widgets.png"
-              className={styles.heroImage}
-            /> */}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
